@@ -2,16 +2,16 @@ DROP DATABASE IF EXISTS PetShereDB;
 CREATE DATABASE PetShereDB;
 USE PetShereDB;
 
-CREATE TABLE ROLES (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(20) NOT NULL,
-    descripcion VARCHAR(100)
-);
+-- CREATE TABLE ROLES (
+-- 	   id INT AUTO_INCREMENT PRIMARY KEY,
+--     nombre VARCHAR(20) NOT NULL,
+--     descripcion VARCHAR(100)
+-- );
 
 CREATE TABLE USUARIOS (
 	id INT AUTO_INCREMENT PRIMARY KEY,
-	usuario VARCHAR(50) NOT NULL UNIQUE,
     documento VARCHAR(20) NOT NULL UNIQUE,
+    correo VARCHAR(100) NOT NULL UNIQUE,
     primerNombre VARCHAR(50) NOT NULL,
     segundoNombre VARCHAR(50),
     primerApellido VARCHAR(50) NOT NULL,
@@ -19,10 +19,9 @@ CREATE TABLE USUARIOS (
     telefono VARCHAR(20),
     direccion VARCHAR(150),
     estado ENUM('Activo', 'Inactivo') DEFAULT 'Activo',
-    correo VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL,
     salt VARCHAR(200),
-    idRol INT NOT NULL,
+    rol VARCHAR(50),
     FOREIGN KEY (idRol) REFERENCES ROLES(id)
 );
 

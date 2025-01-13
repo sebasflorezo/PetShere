@@ -18,36 +18,35 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "USUARIOS", uniqueConstraints = {
+@Table(name = "USERS", uniqueConstraints = {
     @UniqueConstraint(columnNames = "username"),
-    @UniqueConstraint(columnNames = "documento"),
-    @UniqueConstraint(columnNames = "correo"),
-    @UniqueConstraint(columnNames = "telefono"),
+    @UniqueConstraint(columnNames = "document"),
+    @UniqueConstraint(columnNames = "email"),
+    @UniqueConstraint(columnNames = "phone"),
 })
-public class Usuario implements UserDetails {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Integer id;
     @Column(nullable = false)
-    private String documento;
+    private String document;
     @Column(nullable = false)
     private String username;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private String telefono;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String secondSurname;
+    private String phone;
     private String password;
-    private String salt;
-    private String correo;
-    private String direccion;
-    private Boolean estado;
+    private String email;
+    private String direction;
+    private Boolean state;
     @Enumerated(EnumType.STRING)
-    private Rol rol;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((rol.name())));
+        return List.of(new SimpleGrantedAuthority((role.name())));
     }
 
     @Override

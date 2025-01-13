@@ -1,5 +1,6 @@
 package app.PetShere.services;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -11,6 +12,7 @@ import app.PetShere.configurations.JwtConfig;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -25,19 +27,51 @@ public class JwtService {
         return getToken(new HashMap<>(), usuario);
     }
 
+    public String getUsernameFromToken(String token) {
+        return getClaims(token, Claims::getSubject);
+    }
+
+    public boolean isTokenValid(String token, UserDetails userDetails) {
+        final String username = getUsernameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    public <T> T getClaims(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
     private String getToken(HashMap<String, Object> extraClaims, UserDetails usuario) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
                 .setSubject(usuario.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    private Claims getAllClaims(String token)
+    {
+        return Jwts
+                .parser()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private Key getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtConfig.getSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private Date getExpiration(String token) {
+        return getClaims(token, Claims::getExpiration);
+    }
+
+    private boolean isTokenExpired(String token) {
+        return getExpiration(token).before(new Date());
     }
 }

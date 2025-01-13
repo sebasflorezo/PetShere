@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class DemoController {
 
-    @PostMapping("/demo")
+    @PostMapping
     public String welcome() {
-        return "demo";
+        return "Authentication works!";
     }
 }
