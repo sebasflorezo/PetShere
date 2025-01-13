@@ -32,7 +32,7 @@ Este sistema está en desarrollo activo y actualmente se encuentra en la etapa d
 ---
 
 ## Autores
-| [<img src="https://avatars.githubusercontent.com/u/109894549?v=4" width=115><br><sub>Johan Sebastian Florez Ospina</sub>](https://github.com/sebasflorezo) | [<img src="https://avatars.githubusercontent.com/u/106800885?v=4" width=115><br><sub>Brayan Alexis Rojas Correa</sub>]([https://github.com/DevHurt](https://github.com/DevHurt)) | 
+| [<img src="https://avatars.githubusercontent.com/u/109894549?v=4" width=115><br><sub>Johan Sebastian Florez Ospina</sub>](https://github.com/sebasflorezo) | [<img src="https://avatars.githubusercontent.com/u/106800885?v=4" width=115><br><sub>Brayan Alexis Rojas Correa</sub>](https://github.com/DevHurt) | 
 |:----------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 
 ## Licencia
