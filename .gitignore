@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-### Logs de la app ###f
-/logs/
+### App Logs ###
+/logs
+
+### Bruno Requests Tests ###
+/RequestsTests
