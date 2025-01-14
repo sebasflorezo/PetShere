@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import app.PetShere.configurations.JwtConfig;
+
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,8 +54,7 @@ public class JwtService {
                 .compact();
     }
 
-    private Claims getAllClaims(String token)
-    {
+    private Claims getAllClaims(String token) {
         return Jwts
                 .parser()
                 .setSigningKey(getKey())
