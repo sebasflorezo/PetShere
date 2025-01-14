@@ -40,14 +40,13 @@ public class AuthService {
     public AuthResponse register(RegisterRequest registerRequest) {
         // TODO: do validation before build
         User user = User.builder()
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .document(registerRequest.getDocument())
-                .username(registerRequest.getUsername())
                 .firstName(registerRequest.getFirstName())
                 .middleName(registerRequest.getMiddleName())
                 .lastName(registerRequest.getLastName())
                 .secondSurname(registerRequest.getSecondSurname())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .email(registerRequest.getEmail())
                 .state(true)
                 .role(Role.CLIENT)
                 .build();
@@ -61,8 +60,8 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest loginRequest) {
         // TODO: do validation before build
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        UserDetails userDetails = userRepository.findByUsername(loginRequest.getUsername()).orElseThrow();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        UserDetails userDetails = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow();
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(userDetails))

@@ -19,10 +19,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "username"),
     @UniqueConstraint(columnNames = "document"),
     @UniqueConstraint(columnNames = "email"),
-    @UniqueConstraint(columnNames = "phone"),
 })
 public class User implements UserDetails {
     @Id
@@ -31,14 +29,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String document;
     @Column(nullable = false)
-    private String username;
+    private String email;
     private String firstName;
     private String middleName;
     private String lastName;
     private String secondSurname;
     private String phone;
     private String password;
-    private String email;
     private String direction;
     private Boolean state;
     @Enumerated(EnumType.STRING)
@@ -47,6 +44,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority((role.name())));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package app.PetShere.services;
 
+import app.PetShere.utils.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -47,7 +48,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(usuario.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))
+                .setExpiration(Constants.tenMinutesFromNow())
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
