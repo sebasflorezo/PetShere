@@ -19,8 +19,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "document"),
-    @UniqueConstraint(columnNames = "email"),
+        @UniqueConstraint(columnNames = "document"),
+        @UniqueConstraint(columnNames = "email"),
 })
 public class User implements UserDetails {
     @Id
@@ -55,14 +55,17 @@ public class User implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;
