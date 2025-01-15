@@ -2,7 +2,6 @@ package app.PetShere.configurations;
 
 import app.PetShere.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,10 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
     private final AuthenticationProvider authProvider;
 
     @Bean
