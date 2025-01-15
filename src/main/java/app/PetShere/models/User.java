@@ -30,11 +30,14 @@ public class User implements UserDetails {
     private String document;
     @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String firstName;
     private String middleName;
+    @Column(nullable = false)
     private String lastName;
     private String secondSurname;
     private String phone;
+    @Column(nullable = false)
     private String password;
     private String direction;
     private Boolean state;

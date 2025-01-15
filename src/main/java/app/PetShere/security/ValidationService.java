@@ -10,13 +10,14 @@ import java.util.regex.Pattern;
 public class ValidationService {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(Constants.EMAIL_REGEX);
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile(Constants.PASSWORD_REGEX);
 
     public void validateRegisterRequest(RegisterRequest registerRequest) {
         if (registerRequest == null)
             throw new IllegalArgumentException(Constants.NULL_REGISTER_MESSAGE);
 
         validateEmail(registerRequest.getEmail());
-        validatePassword(registerRequest.getPassword());
+        validatePasswordRegister(registerRequest.getPassword());
 
         if (!StringUtils.hasText(registerRequest.getDocument()))
             throw new IllegalArgumentException(Constants.EMPTY_DOCUMENT_MESSAGE);
@@ -33,7 +34,7 @@ public class ValidationService {
             throw new IllegalArgumentException(Constants.NULL_LOGIN_MESSAGE);
 
         validateEmail(loginRequest.getEmail());
-        validatePassword(loginRequest.getPassword());
+        validatePasswordLogin(loginRequest.getPassword());
     }
 
     public void validateEmail(String email) {
@@ -41,8 +42,13 @@ public class ValidationService {
             throw new IllegalArgumentException(Constants.INVALID_EMAIL_MESSAGE);
     }
 
-    public void validatePassword(String password) {
-        if (!StringUtils.hasText(password) || password.length() < 9)
+    private void validatePasswordLogin(String password) {
+        if (!StringUtils.hasText(password))
+            throw new IllegalArgumentException(Constants.INVALID_PASSWORD_MESSAGE);
+    }
+
+    public void validatePasswordRegister(String password) {
+        if (!StringUtils.hasText(password) || !PASSWORD_PATTERN.matcher(password).matches())
             throw new IllegalArgumentException(Constants.INVALID_PASSWORD_MESSAGE);
     }
 }
