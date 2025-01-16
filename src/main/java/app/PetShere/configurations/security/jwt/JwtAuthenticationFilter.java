@@ -1,4 +1,4 @@
-package app.PetShere.security.jwt;
+package app.PetShere.configurations.security.jwt;
 
 import app.PetShere.services.JwtService;
 import jakarta.servlet.FilterChain;

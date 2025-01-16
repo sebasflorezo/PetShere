@@ -1,4 +1,4 @@
-package app.PetShere.security;
+package app.PetShere.configurations.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-    String email;
-    String password;
+@AllArgsConstructor
+public class AuthResponse {
+    String token;
 }

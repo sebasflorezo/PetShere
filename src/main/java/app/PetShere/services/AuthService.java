@@ -2,11 +2,12 @@ package app.PetShere.services;
 
 import app.PetShere.models.Role;
 import app.PetShere.models.User;
-import app.PetShere.security.AuthResponse;
-import app.PetShere.security.LoginRequest;
-import app.PetShere.security.RegisterRequest;
+import app.PetShere.configurations.security.AuthResponse;
+import app.PetShere.configurations.security.LoginRequest;
+import app.PetShere.configurations.security.RegisterRequest;
 import app.PetShere.repositories.UserRepository;
-import app.PetShere.security.ValidationService;
+import app.PetShere.utils.Constants;
+import app.PetShere.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,7 +57,7 @@ public class AuthService {
         UserDetails userDetails = userRepository
                 .findByEmail(loginRequest.getEmail())
                 .orElseThrow(
-                        () -> new UsernameNotFoundException("Usuario no encontrado con email: " + loginRequest.getEmail())
+                        () -> new NotFoundException(Constants.USER_NOT_FOUND_BY_EMAIL + loginRequest.getEmail())
                 );
 
         return AuthResponse.builder()

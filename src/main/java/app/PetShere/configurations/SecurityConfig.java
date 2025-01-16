@@ -1,6 +1,6 @@
 package app.PetShere.configurations;
 
-import app.PetShere.security.jwt.JwtAuthenticationFilter;
+import app.PetShere.configurations.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

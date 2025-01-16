@@ -1,5 +1,7 @@
-package app.PetShere.security;
+package app.PetShere.services;
 
+import app.PetShere.configurations.security.LoginRequest;
+import app.PetShere.configurations.security.RegisterRequest;
 import app.PetShere.utils.Constants;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;

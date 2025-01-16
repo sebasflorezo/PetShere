@@ -3,6 +3,9 @@ package app.PetShere.utils;
 import java.util.Date;
 
 public class Constants {
+    // General
+    public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
+
     // Validations
     public static final String NULL_REGISTER_MESSAGE = "Formulario de registro no es válido";
     public static final String NULL_LOGIN_MESSAGE = "Formulario de inicio de sesión no es válido";
@@ -19,8 +22,8 @@ public class Constants {
             """;
 
     // Regular expresions
-    public static final String EMAIL_REGEX = "^[\\w\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     public static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    public static final String EMAIL_REGEX = "^[\\w\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
     // Utility methods
     public static Date tenMinutesFromNow() {

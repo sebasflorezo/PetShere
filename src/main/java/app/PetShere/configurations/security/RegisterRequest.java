@@ -1,4 +1,4 @@
-package app.PetShere.security;
+package app.PetShere.configurations.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
