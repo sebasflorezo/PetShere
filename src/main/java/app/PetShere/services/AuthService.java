@@ -43,6 +43,7 @@ public class AuthService {
                 .role(Role.CLIENT)
                 .build();
 
+        // TODO: send verification email before save
         userRepository.save(user);
 
         return AuthResponse.builder()

@@ -25,8 +25,8 @@ public class JwtService {
         this.jwtConfig = jwtConfig;
     }
 
-    public String getToken(UserDetails usuario) {
-        return getToken(new HashMap<>(), usuario);
+    public String getToken(UserDetails user) {
+        return generateToken(new HashMap<>(), user);
     }
 
     public String getUsernameFromToken(String token) {
@@ -39,17 +39,45 @@ public class JwtService {
     }
 
     public <T> T getClaims(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = getAllClaims(token);
-        return claimsResolver.apply(claims);
+        try {
+            final Claims claims = getAllClaims(token);
+            return claimsResolver.apply(claims);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    private String getToken(HashMap<String, Object> extraClaims, UserDetails usuario) {
+    public boolean isTokenExpired(String token) {
+        return getExpiration(token).before(new Date());
+    }
+
+    public boolean canTokenBeRenewed(String token) {
+        try {
+            Claims claims = getAllClaims(token);
+            Date expiration = claims.getExpiration();
+            long currentTime = System.currentTimeMillis();
+
+            return expiration.before(new Date(currentTime))
+                    && expiration.getTime() + Constants.TOKEN_REFRESH_TIME > currentTime;
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
+    public String renewToken(String token, UserDetails userDetails) {
+        if (!canTokenBeRenewed(token))
+            throw new IllegalArgumentException(Constants.JWT_CANT_RENEW);
+
+        return getToken(userDetails);
+    }
+
+    private String generateToken(HashMap<String, Object> extraClaims, UserDetails user) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(usuario.getUsername())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(Constants.tenMinutesFromNow())
+                .setExpiration(new Date(System.currentTimeMillis() + Constants.TOKEN_EXPIRATION_TIME))
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -70,9 +98,5 @@ public class JwtService {
 
     private Date getExpiration(String token) {
         return getClaims(token, Claims::getExpiration);
-    }
-
-    private boolean isTokenExpired(String token) {
-        return getExpiration(token).before(new Date());
     }
 }
