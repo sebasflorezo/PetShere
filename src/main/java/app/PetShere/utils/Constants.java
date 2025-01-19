@@ -1,10 +1,19 @@
 package app.PetShere.utils;
 
-import java.util.Date;
-
 public class Constants {
+    // Configurations
+    public static final String BEARER_START = "Bearer ";
+    public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 10; //60 * 24;
+    public static final long TOKEN_REFRESH_TIME = 1000 * 60 * 60 * 24 * 7;
+
+    // Log messages
+    public static final String JWT_NOT_FOUND_MSG = "JWT not found";
+    public static final String JWT_EMAIL_NOT_FOUND_MSG = "JWT doesn't contains a email";
+    public static final String JWT_PROCESSING_ERROR = "Error processing JWT - ";
+
     // General
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
+    public static final String JWT_CANT_RENEW = "El token no puede ser renovado";
 
     // Validations
     public static final String NULL_REGISTER_MESSAGE = "Formulario de registro no es válido";
@@ -24,10 +33,4 @@ public class Constants {
     // Regular expresions
     public static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     public static final String EMAIL_REGEX = "^[\\w\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-
-    // Utility methods
-    public static Date tenMinutesFromNow() {
-        // 600_000 = 1000 * 60 * 10
-        return new Date(System.currentTimeMillis() + 600_000);
-    }
 }
