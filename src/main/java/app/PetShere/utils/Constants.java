@@ -3,13 +3,16 @@ package app.PetShere.utils;
 public class Constants {
     // Configurations
     public static final String BEARER_START = "Bearer ";
-    public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 10; //60 * 24;
+    public static final String JWT_AUDIENCE = "https://api.petshere.com";
+    public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 1;
     public static final long TOKEN_REFRESH_TIME = 1000 * 60 * 60 * 24 * 7;
 
     // Log messages
-    public static final String JWT_NOT_FOUND_MSG = "JWT not found";
-    public static final String JWT_EMAIL_NOT_FOUND_MSG = "JWT doesn't contains a email";
-    public static final String JWT_PROCESSING_ERROR = "Error processing JWT - ";
+    public static final String JWT_EXPIRED_MSG = "JWT está expirado";
+    public static final String JWT_INVALID_AUDIENCE = "JWT con audiencia inválida";
+    public static final String JWT_NOT_FOUND_MSG = "JWT no encontrado";
+    public static final String JWT_EMAIL_NOT_FOUND_MSG = "JWT email no encontrado";
+    public static final String JWT_PROCESSING_ERROR = "Error procesando JWT - ";
 
     // General
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";

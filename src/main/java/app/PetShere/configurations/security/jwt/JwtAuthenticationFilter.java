@@ -29,44 +29,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
         try {
-            final String token = getTokenFromRequest(request);
-            if (token == null) {
-                log.warn(Constants.JWT_NOT_FOUND_MSG);
-                filterChain.doFilter(request, response);
-                return;
-            }
+            final String token = this.getTokenFromRequest(request);
 
-            final String username = jwtService.getUsernameFromToken(token);
-            if (username == null) {
-                log.warn(Constants.JWT_EMAIL_NOT_FOUND_MSG);
-                filterChain.doFilter(request, response);
-                return;
-            }
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-            if (!jwtService.isTokenValid(token, userDetails)) {
+            if (!jwtService.isTokenValid(token)) {
                 SecurityContextHolder.clearContext();
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            if (jwtService.isTokenExpired(token) && jwtService.canTokenBeRenewed(token)) {
-                String newToken = jwtService.renewToken(token, userDetails);
-                response.setHeader(HttpHeaders.AUTHORIZATION, Constants.BEARER_START + newToken);
-                authenticateUser(userDetails.getUsername(), userDetails, request);
-            } else {
-                SecurityContextHolder.clearContext();
-            }
-
-            authenticateUser(userDetails.getUsername(), userDetails, request);
-
+            UserDetails userDetails = userDetailsService.loadUserByUsername(jwtService.getUsernameFromToken(token));
+            this.authenticateUser(userDetails.getUsername(), userDetails, request);
+            filterChain.doFilter(request, response);
         } catch (Exception exception) {
             log.error(Constants.JWT_PROCESSING_ERROR + "{}", exception.getMessage());
-        } finally {
-            filterChain.doFilter(request, response);
+            SecurityContextHolder.clearContext();
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
         }
     }
 
