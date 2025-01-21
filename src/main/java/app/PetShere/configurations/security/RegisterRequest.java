@@ -1,4 +1,4 @@
-package app.PetShere.security;
+package app.PetShere.configurations.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,12 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
+    private String email;
+    private String password;
     private String document;
-    private String username;
     private String firstName;
     private String middleName;
     private String lastName;
     private String secondSurname;
-    private String password;
-    private String email;
+    private String phone;
+    private String direction;
 }
