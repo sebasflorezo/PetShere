@@ -2,10 +2,9 @@ package app.PetShere.services.admin;
 
 import app.PetShere.models.user.Role;
 import app.PetShere.models.user.User;
-import app.PetShere.repositories.UserRepository;
+import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Validations;
 import app.PetShere.utils.Constants;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -24,7 +24,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 })
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
     private String document;

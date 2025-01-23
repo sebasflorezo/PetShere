@@ -1,6 +1,6 @@
 package app.PetShere.configurations;
 
-import app.PetShere.repositories.UserRepository;
+import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Constants;
 import app.PetShere.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;

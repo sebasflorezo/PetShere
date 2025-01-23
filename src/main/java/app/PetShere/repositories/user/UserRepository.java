@@ -1,4 +1,4 @@
-package app.PetShere.repositories;
+package app.PetShere.repositories.user;
 
 import app.PetShere.models.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
