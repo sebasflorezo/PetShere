@@ -1,5 +1,6 @@
-package app.PetShere.controllers;
+package app.PetShere.controllers.demo;
 
+import app.PetShere.utils.Constants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +21,7 @@ public class DemoController {
 
     // NOTE: Use PreAuthorize for each method that needs authorization
     @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize(Constants.ADMIN_AUTHORITY)
     public String testOnlyAdminRequest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String roles = authentication.getAuthorities().toString();
