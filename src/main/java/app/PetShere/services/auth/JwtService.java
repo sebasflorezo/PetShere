@@ -1,4 +1,4 @@
-package app.PetShere.services;
+package app.PetShere.services.auth;
 
 import app.PetShere.utils.Constants;
 import io.jsonwebtoken.Claims;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import app.PetShere.configurations.JwtConfig;
+import app.PetShere.configurations.JwtSecretKey;
 
 import java.security.Key;
 import java.util.Date;
@@ -23,7 +23,7 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private final JwtConfig jwtConfig;
+    private final JwtSecretKey jwtSecretKey;
 
     public String getToken(UserDetails user) {
         return generateToken(new HashMap<>(), user);
@@ -100,7 +100,7 @@ public class JwtService {
     }
 
     private Key getSecretKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwtConfig.getSecretKey());
+        byte[] keyBytes = Decoders.BASE64.decode(jwtSecretKey.getSecretKey());
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

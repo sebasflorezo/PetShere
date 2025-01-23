@@ -1,4 +1,4 @@
-package app.PetShere.models;
+package app.PetShere.models.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -25,7 +25,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     @Column(nullable = false)
     private String document;
     @Column(nullable = false)

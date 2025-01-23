@@ -1,8 +1,8 @@
-package app.PetShere.controllers;
+package app.PetShere.controllers.auth;
 
-import app.PetShere.configurations.security.LoginRequest;
-import app.PetShere.configurations.security.RegisterRequest;
-import app.PetShere.services.AuthService;
+import app.PetShere.models.auth.LoginRequest;
+import app.PetShere.models.auth.RegisterRequest;
+import app.PetShere.services.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,18 +1,18 @@
-package app.PetShere.services;
+package app.PetShere.services.auth;
 
-import app.PetShere.models.Role;
-import app.PetShere.models.User;
-import app.PetShere.configurations.security.AuthResponse;
-import app.PetShere.configurations.security.LoginRequest;
-import app.PetShere.configurations.security.RegisterRequest;
+import app.PetShere.models.user.Role;
+import app.PetShere.models.user.User;
+import app.PetShere.models.auth.AuthResponse;
+import app.PetShere.models.auth.LoginRequest;
+import app.PetShere.models.auth.RegisterRequest;
 import app.PetShere.repositories.UserRepository;
+import app.PetShere.utils.Validations;
 import app.PetShere.utils.Constants;
 import app.PetShere.utils.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +24,9 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final ValidationService validationService;
 
     public AuthResponse register(RegisterRequest registerRequest) {
-        validationService.validateRegisterRequest(registerRequest);
+        Validations.validateRegisterRequest(registerRequest);
 
         User user = User.builder()
                 .email(registerRequest.getEmail())
@@ -52,7 +51,7 @@ public class AuthService {
     }
 
     public AuthResponse login(LoginRequest loginRequest) {
-        validationService.validateLoginRequest(loginRequest);
+        Validations.validateLoginRequest(loginRequest);
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         UserDetails userDetails = userRepository

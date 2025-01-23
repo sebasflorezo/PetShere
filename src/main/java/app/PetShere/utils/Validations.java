@@ -1,20 +1,20 @@
-package app.PetShere.services;
+package app.PetShere.utils;
 
-import app.PetShere.configurations.security.LoginRequest;
-import app.PetShere.configurations.security.RegisterRequest;
-import app.PetShere.utils.Constants;
-import org.springframework.stereotype.Service;
+import app.PetShere.models.auth.LoginRequest;
+import app.PetShere.models.auth.RegisterRequest;
+import app.PetShere.models.user.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Pattern;
 
-@Service
-public class ValidationService {
+@Slf4j
+public class Validations {
 
     private static final Pattern EMAIL_PATTERN = Pattern.compile(Constants.EMAIL_REGEX);
     private static final Pattern PASSWORD_PATTERN = Pattern.compile(Constants.PASSWORD_REGEX);
 
-    public void validateRegisterRequest(RegisterRequest registerRequest) {
+    public static void validateRegisterRequest(RegisterRequest registerRequest) {
         if (registerRequest == null)
             throw new IllegalArgumentException(Constants.NULL_REGISTER_MESSAGE);
 
@@ -31,7 +31,7 @@ public class ValidationService {
             throw new IllegalArgumentException(Constants.EMPTY_LASTNAME_MESSAGE);
     }
 
-    public void validateLoginRequest(LoginRequest loginRequest) {
+    public static void validateLoginRequest(LoginRequest loginRequest) {
         if (loginRequest == null)
             throw new IllegalArgumentException(Constants.NULL_LOGIN_MESSAGE);
 
@@ -39,18 +39,27 @@ public class ValidationService {
         validatePasswordLogin(loginRequest.getPassword());
     }
 
-    public void validateEmail(String email) {
+    public static void validateEmail(String email) {
         if (!StringUtils.hasText(email) || !EMAIL_PATTERN.matcher(email).matches())
             throw new IllegalArgumentException(Constants.INVALID_EMAIL_MESSAGE);
     }
 
-    private void validatePasswordLogin(String password) {
+    private static void validatePasswordLogin(String password) {
         if (!StringUtils.hasText(password))
             throw new IllegalArgumentException(Constants.INVALID_PASSWORD_MESSAGE);
     }
 
-    public void validatePasswordRegister(String password) {
+    public static void validatePasswordRegister(String password) {
         if (!StringUtils.hasText(password) || !PASSWORD_PATTERN.matcher(password).matches())
             throw new IllegalArgumentException(Constants.INVALID_PASSWORD_MESSAGE);
+    }
+
+    public static void validateRole(String role) {
+        try {
+            Role.valueOf(role);
+        } catch (IllegalArgumentException e) {
+            log.error(Constants.ROLE_NOT_FOUND_MESSAGE);
+            throw new IllegalArgumentException(Constants.ROLE_NOT_FOUND_MESSAGE);
+        }
     }
 }
