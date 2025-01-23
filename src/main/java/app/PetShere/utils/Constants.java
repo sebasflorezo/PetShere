@@ -4,8 +4,14 @@ public class Constants {
     // Configurations
     public static final String BEARER_START = "Bearer ";
     public static final String JWT_AUDIENCE = "https://api.petshere.com";
-    public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 1;
+    public static final long TOKEN_EXPIRATION_TIME = 1000 * 60 * 10;
     public static final long TOKEN_REFRESH_TIME = 1000 * 60 * 60 * 24 * 7;
+
+    // Authorization
+    public static final String ADMIN_AUTHORITY = "hasAuthority('ADMIN')";
+    public static final String CLIENT_AUTHORITY = "hasAuthority('CLIENT')";
+    public static final String MANAGER_AUTHORITY = "hasAuthority('MANAGER')";
+    public static final String CARER_AUTHORITY = "hasAuthority('CARER')";
 
     // Log messages
     public static final String JWT_EXPIRED_MSG = "JWT está expirado";
@@ -14,8 +20,14 @@ public class Constants {
     public static final String JWT_EMAIL_NOT_FOUND_MSG = "JWT email no encontrado";
     public static final String JWT_PROCESSING_ERROR = "Error procesando JWT - ";
 
+    public static final String CHANGE_USER_ROLE_ERROR = "Error al cambiar el rol del usuario - ";
+
+    // Request error messages
+    public static final Object BAD_REQUEST_MSG = "Solicitud incorrecta";
+
     // General
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
+    public static final String USER_NOT_FOUND_BY_ID = "Usuario no encontrado con id";
     public static final String JWT_CANT_RENEW = "El token no puede ser renovado";
 
     // Validations
@@ -32,6 +44,8 @@ public class Constants {
             - Caracteres numéricos
             - Caracteres especiales
             """;
+
+    public static final String ROLE_NOT_FOUND_MESSAGE = "Rol no encontrado";
 
     // Regular expresions
     public static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";

@@ -1,9 +1,8 @@
-package app.PetShere.configurations.security.jwt;
+package app.PetShere.configurations.filters;
 
-import app.PetShere.services.JwtService;
+import app.PetShere.services.auth.JwtService;
 import app.PetShere.utils.Constants;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

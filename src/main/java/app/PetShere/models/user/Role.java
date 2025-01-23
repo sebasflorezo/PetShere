@@ -1,4 +1,4 @@
-package app.PetShere.models;
+package app.PetShere.models.user;
 
 public enum Role {
     ADMIN,
