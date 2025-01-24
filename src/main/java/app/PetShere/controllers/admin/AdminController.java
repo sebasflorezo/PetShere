@@ -4,13 +4,11 @@ import app.PetShere.models.user.Role;
 import app.PetShere.services.admin.AdminServiceImpl;
 import app.PetShere.utils.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
