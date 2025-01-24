@@ -7,8 +7,8 @@ import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Validations;
 import app.PetShere.utils.Constants;
 import app.PetShere.mappers.user.UserMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public List<UserDto> getUsers() {

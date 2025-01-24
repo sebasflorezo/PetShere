@@ -4,17 +4,17 @@ import app.PetShere.models.user.Role;
 import app.PetShere.services.admin.AdminServiceImpl;
 import app.PetShere.utils.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    AdminServiceImpl adminServiceImpl;
+    private final AdminServiceImpl adminServiceImpl;
 
     @GetMapping("/users")
     @PreAuthorize(Constants.ADMIN_AUTHORITY)
