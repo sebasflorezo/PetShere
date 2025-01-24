@@ -1,7 +1,7 @@
 package app.PetShere.controllers.auth;
 
-import app.PetShere.models.auth.LoginRequest;
-import app.PetShere.models.auth.RegisterRequest;
+import app.PetShere.dtos.auth.LoginRequest;
+import app.PetShere.dtos.auth.RegisterRequest;
 import app.PetShere.services.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

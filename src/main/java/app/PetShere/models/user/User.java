@@ -1,5 +1,6 @@
 package app.PetShere.models.user;
 
+import app.PetShere.models.pet.Pet;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,8 @@ public class User implements UserDetails {
     private Boolean state;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Pet> pets;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

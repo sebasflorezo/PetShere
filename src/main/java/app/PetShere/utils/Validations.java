@@ -1,7 +1,7 @@
 package app.PetShere.utils;
 
-import app.PetShere.models.auth.LoginRequest;
-import app.PetShere.models.auth.RegisterRequest;
+import app.PetShere.dtos.auth.LoginRequest;
+import app.PetShere.dtos.auth.RegisterRequest;
 import app.PetShere.models.user.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;

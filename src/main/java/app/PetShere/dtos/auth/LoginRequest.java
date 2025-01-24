@@ -1,4 +1,4 @@
-package app.PetShere.models.auth;
+package app.PetShere.dtos.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
