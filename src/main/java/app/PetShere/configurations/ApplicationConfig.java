@@ -2,7 +2,7 @@ package app.PetShere.configurations;
 
 import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Constants;
-import app.PetShere.utils.exceptions.NotFoundException;
+import app.PetShere.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
