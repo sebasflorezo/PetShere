@@ -1,12 +1,11 @@
 package app.PetShere.services.admin;
 
-import app.PetShere.models.user.Role;
-import app.PetShere.models.user.User;
+import app.PetShere.dtos.user.UserDto;
 
 import java.util.List;
 
 public interface AdminService {
-    List<User> getUsers();
+    List<UserDto> getUsers();
 
     void changeUserRole(Long id, String role);
 }

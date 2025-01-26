@@ -1,7 +1,8 @@
 package app.PetShere.utils;
 
-import app.PetShere.models.auth.LoginRequest;
-import app.PetShere.models.auth.RegisterRequest;
+import app.PetShere.dtos.auth.LoginRequest;
+import app.PetShere.dtos.auth.RegisterRequest;
+import app.PetShere.dtos.pet.PetDto;
 import app.PetShere.models.user.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
@@ -20,9 +21,7 @@ public class Validations {
 
         validateEmail(registerRequest.getEmail());
         validatePasswordRegister(registerRequest.getPassword());
-
-        if (!StringUtils.hasText(registerRequest.getDocument()))
-            throw new IllegalArgumentException(Constants.EMPTY_DOCUMENT_MESSAGE);
+        validateDocument(registerRequest.getDocument());
 
         if (!StringUtils.hasText(registerRequest.getFirstName()))
             throw new IllegalArgumentException(Constants.EMPTY_FIRST_NAME_MESSAGE);
@@ -37,6 +36,11 @@ public class Validations {
 
         validateEmail(loginRequest.getEmail());
         validatePasswordLogin(loginRequest.getPassword());
+    }
+
+    private static void validateDocument(String document) {
+        if (document == null || document.isEmpty() || document.length() >= 12 || !document.matches("\\d+"))
+            throw new IllegalArgumentException(Constants.INVALID_DOCUMENT_MESSAGE);
     }
 
     public static void validateEmail(String email) {
@@ -61,5 +65,11 @@ public class Validations {
             log.error(Constants.ROLE_NOT_FOUND_MESSAGE);
             throw new IllegalArgumentException(Constants.ROLE_NOT_FOUND_MESSAGE);
         }
+    }
+
+    public static void validatePetDto(PetDto petDto) {
+        validateDocument(petDto.getOwnerDocument());
+
+        // TODO: agregar más validaciones
     }
 }

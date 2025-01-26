@@ -2,13 +2,13 @@ package app.PetShere.services.auth;
 
 import app.PetShere.models.user.Role;
 import app.PetShere.models.user.User;
-import app.PetShere.models.auth.AuthResponse;
-import app.PetShere.models.auth.LoginRequest;
-import app.PetShere.models.auth.RegisterRequest;
-import app.PetShere.repositories.UserRepository;
+import app.PetShere.dtos.auth.AuthResponse;
+import app.PetShere.dtos.auth.LoginRequest;
+import app.PetShere.dtos.auth.RegisterRequest;
+import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Validations;
 import app.PetShere.utils.Constants;
-import app.PetShere.utils.exceptions.NotFoundException;
+import app.PetShere.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

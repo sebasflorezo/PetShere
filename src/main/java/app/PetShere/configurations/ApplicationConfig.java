@@ -1,10 +1,9 @@
 package app.PetShere.configurations;
 
-import app.PetShere.repositories.UserRepository;
+import app.PetShere.repositories.user.UserRepository;
 import app.PetShere.utils.Constants;
-import app.PetShere.utils.exceptions.NotFoundException;
+import app.PetShere.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    @Autowired
     private final UserRepository userRepository;
 
     @Bean

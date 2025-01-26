@@ -1,4 +1,4 @@
-package app.PetShere.utils.exceptions;
+package app.PetShere.exceptions;
 
 public class NotFoundException extends RuntimeException {
 
