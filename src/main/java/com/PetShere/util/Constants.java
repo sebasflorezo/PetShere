@@ -27,6 +27,7 @@ public class Constants {
     public static final String UNAUTHORIZED_USER = "Usuario no autorizado";
 
     // General
+    public static final String NOT_FOUND_GENERIC = "No encontrado";
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
     public static final String USER_NOT_FOUND_BY_ID = "Usuario no encontrado con id: ";
     public static final String USER_NOT_FOUND_BY_DOCUMENT = "Usuario no encontrado con documento: ";
