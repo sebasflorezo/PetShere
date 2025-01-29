@@ -1,6 +1,8 @@
 package com.PetShere.presentation.controllers.pet;
 
+import com.PetShere.presentation.dto.medicalHistory.MedicalHistoryDto;
 import com.PetShere.presentation.dto.pet.PetDto;
+import com.PetShere.service.implementation.medicalHistory.MedicalHistoryImpl;
 import com.PetShere.service.implementation.pet.PetServiceImpl;
 import com.PetShere.util.Constants;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 public class PetController {
 
     private final PetServiceImpl petServiceImpl;
+    private final MedicalHistoryImpl medicalHistoryImpl;
 
     @GetMapping
     @PreAuthorize(Constants.ADMIN_AUTHORITY)
@@ -48,12 +51,11 @@ public class PetController {
     public ResponseEntity<?> createPet(@PathVariable String document, @RequestBody PetDto petDto) {
         try {
             petDto.setOwnerDocument(document);
-            petServiceImpl.createPet(petDto);
 
             URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(petDto.getId())
+                    .buildAndExpand(petServiceImpl.createPet(petDto).getId())
                     .toUri();
 
             return ResponseEntity.created(location).build();
@@ -84,4 +86,35 @@ public class PetController {
         }
     }
 
+    // Medical History
+    @GetMapping("/{id}/medical-history")
+    @PreAuthorize(Constants.CARER_AUTHORITY)
+    public ResponseEntity<?> getMedicalHistoriesByPet(@PathVariable Long id) {
+        try {
+            List<MedicalHistoryDto> medicalHistories = medicalHistoryImpl.getAllMedicalHistoriesByPet(id);
+            return ResponseEntity.ok(medicalHistories);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Constants.BAD_REQUEST_MSG);
+        }
+    }
+
+    @PostMapping("/{id}/medical-history")
+    @PreAuthorize(Constants.CARER_AUTHORITY)
+    public ResponseEntity<?> createMedicalHistory(@PathVariable Long id, @RequestBody MedicalHistoryDto medicalHistoryDto) {
+        try {
+            medicalHistoryDto.setPetId(id);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromPath("/medical-history")
+                    .path("/{id}")
+                    .buildAndExpand(
+                            medicalHistoryImpl.createMedicalHistory(medicalHistoryDto).getId()
+                    )
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(Constants.BAD_REQUEST_MSG);
+        }
+    }
 }

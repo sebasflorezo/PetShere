@@ -69,7 +69,6 @@ public class Validations {
 
     public static void validatePetDto(PetDto petDto) {
         validateDocument(petDto.getOwnerDocument());
-
         // TODO: agregar más validaciones
     }
 }

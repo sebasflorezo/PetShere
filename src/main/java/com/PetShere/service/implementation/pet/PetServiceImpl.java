@@ -2,12 +2,13 @@ package com.PetShere.service.implementation.pet;
 
 import com.PetShere.presentation.dto.pet.PetDto;
 import com.PetShere.service.exception.AuthorizationDeniedException;
+import com.PetShere.service.exception.NotFoundException;
 import com.PetShere.service.exception.ResourceNotFoundException;
 import com.PetShere.service.interfaces.IPetService;
 import com.PetShere.util.mapper.pet.PetMapper;
 import com.PetShere.persistence.model.pet.Pet;
 import com.PetShere.persistence.model.user.User;
-import com.PetShere.persistence.repository.pet.IPetRespository;
+import com.PetShere.persistence.repository.pet.IPetRepository;
 import com.PetShere.persistence.repository.user.IUserRepository;
 import com.PetShere.util.Constants;
 import com.PetShere.util.AppUtil;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PetServiceImpl implements IPetService {
 
-    private final IPetRespository petRespository;
+    private final IPetRepository petRespository;
     private final IUserRepository userRepository;
 
     @Override
@@ -68,7 +69,7 @@ public class PetServiceImpl implements IPetService {
     }
 
     @Override
-    public void createPet(PetDto petDto) {
+    public Pet createPet(PetDto petDto) {
         User user = AppUtil.getCurrentUser(userRepository)
                 .orElseThrow(() -> new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER));
 
@@ -78,12 +79,13 @@ public class PetServiceImpl implements IPetService {
         pet.setState(true);
 
         petRespository.save(pet);
+        return pet;
     }
 
     @Override
-    public void updatePet(Long id, PetDto petDto) {
+    public Pet updatePet(Long id, PetDto petDto) {
         Pet pet = petRespository.findById(id)
-                .orElseThrow(() -> new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER));
+                .orElseThrow(() -> new NotFoundException(Constants.PET_NOT_FOUND_BY_ID));
 
         if (!isPetOwnedByUser(PetMapper.toDto(pet)))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
@@ -96,6 +98,7 @@ public class PetServiceImpl implements IPetService {
         pet.setFoodPreferences(petDto.getFoodPreferences());
 
         petRespository.save(pet);
+        return pet;
     }
 
     @Override
@@ -103,6 +106,8 @@ public class PetServiceImpl implements IPetService {
         Optional<User> user = AppUtil.getCurrentUser(userRepository);
         if (user.isEmpty() || !isPetOwnedByUser(id))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
+
+        // TODO: no deber permitir eliminar si siene reservas activas
 
         petRespository.findById(id).ifPresent(p -> {
             p.setState(false);
