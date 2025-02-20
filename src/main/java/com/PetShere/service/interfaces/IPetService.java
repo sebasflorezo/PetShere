@@ -10,11 +10,11 @@ public interface IPetService {
 
     PetDto getPetById(Long id);
 
-    List<PetDto> getPetsByOwnerDocument(String document);
+    List<PetDto> getPetsByClientDocument(String document);
 
     Pet createPet(PetDto petDto);
 
     Pet updatePet(Long id, PetDto petDto);
 
-    void deletePet(Long id);
+    void changePetState(Long id);
 }

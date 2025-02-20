@@ -1,0 +1,56 @@
+package com.PetShere.presentation.controllers.client;
+
+import com.PetShere.presentation.dto.facture.FactureDto;
+import com.PetShere.presentation.dto.pet.PetDto;
+import com.PetShere.service.implementation.facture.FactureServiceImpl;
+import com.PetShere.service.implementation.pet.PetServiceImpl;
+import com.PetShere.util.Constants;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+@RequestMapping("/clients")
+@RequiredArgsConstructor
+@PreAuthorize(Constants.CLIENT_AUTHORITY)
+public class ClientController {
+
+    private final PetServiceImpl petServiceImpl;
+    private final FactureServiceImpl factureServiceImpl;
+
+    @GetMapping("/{document}/pets")
+    public ResponseEntity<?> getClientPets(@PathVariable String document) {
+        List<PetDto> pets = petServiceImpl.getPetsByClientDocument(document);
+        return ResponseEntity.ok(pets);
+    }
+
+    @PostMapping("/{document}/pets")
+    public ResponseEntity<?> createClientPet(@PathVariable String document, @RequestBody PetDto petDto) {
+        petDto.setOwnerDocument(document);
+        URI location = ServletUriComponentsBuilder
+                .fromPath("/pet")
+                .path("/{id}")
+                .buildAndExpand(petServiceImpl.createPet(petDto).getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/{id}/factures")
+    public ResponseEntity<?> getClientFactures(@PathVariable Long id) {
+        List<FactureDto> factures = factureServiceImpl.getFacturesClient(id);
+        return ResponseEntity.ok(factures);
+    }
+
+    @PostMapping("/{id}/factures")
+    public ResponseEntity<?> createClientFacture(@PathVariable Long id) {
+        // TODO: Crear una factura para el cliente por su id
+        factureServiceImpl.createFacture(null); // from body?
+        return null;
+    }
+}

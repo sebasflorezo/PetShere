@@ -9,17 +9,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/medical-history")
+@RequestMapping("/medical-histories")
 @RequiredArgsConstructor
 public class MedicalHistoryController {
 
     private final MedicalHistoryImpl medicalHistoryImpl;
-
-    @GetMapping
-    @PreAuthorize(Constants.ADMIN_AUTHORITY)
-    public ResponseEntity<?> getMedicalHistory() {
-        return ResponseEntity.ok(medicalHistoryImpl.getAllMedicalHistories());
-    }
 
     @PutMapping("/{id}")
     @PreAuthorize(Constants.CARER_AUTHORITY)
