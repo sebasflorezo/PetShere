@@ -21,6 +21,7 @@ public class Service {
     private String name;
     @Column(nullable = false)
     private Long price;
+    private Boolean state;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

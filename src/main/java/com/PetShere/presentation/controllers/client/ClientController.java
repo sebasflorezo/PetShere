@@ -33,7 +33,7 @@ public class ClientController {
     public ResponseEntity<?> createClientPet(@PathVariable String document, @RequestBody PetDto petDto) {
         petDto.setOwnerDocument(document);
         URI location = ServletUriComponentsBuilder
-                .fromPath("/pet")
+                .fromPath("/pets")
                 .path("/{id}")
                 .buildAndExpand(petServiceImpl.createPet(petDto).getId())
                 .toUri();
@@ -48,9 +48,14 @@ public class ClientController {
     }
 
     @PostMapping("/{id}/factures")
-    public ResponseEntity<?> createClientFacture(@PathVariable Long id) {
-        // TODO: Crear una factura para el cliente por su id
-        factureServiceImpl.createFacture(null); // from body?
-        return null;
+    public ResponseEntity<?> createClientFacture(@PathVariable Long id, @RequestBody FactureDto factureDto) {
+        factureDto.setClient_id(id);
+        URI location = ServletUriComponentsBuilder
+                .fromPath("/factures")
+                .path("/{id}")
+                .buildAndExpand(factureServiceImpl.createFacture(factureDto).getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
