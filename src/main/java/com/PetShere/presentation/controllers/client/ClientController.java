@@ -1,10 +1,13 @@
 package com.PetShere.presentation.controllers.client;
 
+import com.PetShere.persistence.model.facture.PaymentMethod;
 import com.PetShere.presentation.dto.facture.FactureDto;
 import com.PetShere.presentation.dto.pet.PetDto;
 import com.PetShere.service.implementation.facture.FactureServiceImpl;
 import com.PetShere.service.implementation.pet.PetServiceImpl;
+import com.PetShere.service.implementation.user.UserServiceImpl;
 import com.PetShere.util.Constants;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +25,19 @@ public class ClientController {
 
     private final PetServiceImpl petServiceImpl;
     private final FactureServiceImpl factureServiceImpl;
+    private final UserServiceImpl userServiceImpl;
+
+    // NOTE: No aplica diseño de api
+    @GetMapping
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getClient() {
+        return ResponseEntity.ok(userServiceImpl.getCurrentUser());
+    }
+
+    @GetMapping("/payments")
+    public ResponseEntity<?> getPaymentMethods() {
+        return ResponseEntity.ok(PaymentMethod.values());
+    }
 
     @GetMapping("/{document}/pets")
     public ResponseEntity<?> getClientPets(@PathVariable String document) {
@@ -41,19 +57,19 @@ public class ClientController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("/{id}/factures")
-    public ResponseEntity<?> getClientFactures(@PathVariable Long id) {
-        List<FactureDto> factures = factureServiceImpl.getFacturesClient(id);
+    @GetMapping("/{document}/factures")
+    public ResponseEntity<?> getClientFactures(@PathVariable String document) {
+        List<FactureDto> factures = factureServiceImpl.getFacturesByClientId(document);
         return ResponseEntity.ok(factures);
     }
 
-    @PostMapping("/{id}/factures")
-    public ResponseEntity<?> createClientFacture(@PathVariable Long id, @RequestBody FactureDto factureDto) {
-        factureDto.setClient_id(id);
+    // @RequestBody JsonNode body
+    @PostMapping("/{document}/factures")
+    public ResponseEntity<?> createClientFacture(@PathVariable String document, @RequestBody JsonNode body) {
         URI location = ServletUriComponentsBuilder
                 .fromPath("/factures")
                 .path("/{id}")
-                .buildAndExpand(factureServiceImpl.createFacture(factureDto).getId())
+                .buildAndExpand(factureServiceImpl.createFacture(document, body.get("paymentMethod").asText()))
                 .toUri();
 
         return ResponseEntity.created(location).build();

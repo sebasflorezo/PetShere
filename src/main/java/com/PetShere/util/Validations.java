@@ -1,5 +1,6 @@
 package com.PetShere.util;
 
+import com.PetShere.persistence.model.facture.PaymentMethod;
 import com.PetShere.presentation.dto.auth.LoginRequest;
 import com.PetShere.presentation.dto.auth.RegisterRequest;
 import com.PetShere.presentation.dto.pet.PetDto;
@@ -58,17 +59,32 @@ public class Validations {
             throw new IllegalArgumentException(Constants.INVALID_PASSWORD_MESSAGE);
     }
 
+    public static void validatePetDto(PetDto petDto) {
+        validateDocument(petDto.getOwnerDocument());
+        // TODO: agregar más validaciones
+    }
+
+    public static void validateFacture(String document, String paymentMethod) {
+        validateDocument(document);
+        validatePaymentMethod(paymentMethod);
+
+        if (paymentMethod == null)
+            throw new IllegalArgumentException(Constants.PAYMENT_METHOD_NOT_FOUND);
+    }
+
+    private static void validatePaymentMethod(String paymentMethod) {
+        try {
+            PaymentMethod.valueOf(paymentMethod);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(Constants.PAYMENT_METHOD_NOT_FOUND);
+        }
+    }
+
     public static void validateRole(String role) {
         try {
             Role.valueOf(role);
         } catch (IllegalArgumentException e) {
-            log.error(Constants.ROLE_NOT_FOUND_MESSAGE);
             throw new IllegalArgumentException(Constants.ROLE_NOT_FOUND_MESSAGE);
         }
-    }
-
-    public static void validatePetDto(PetDto petDto) {
-        validateDocument(petDto.getOwnerDocument());
-        // TODO: agregar más validaciones
     }
 }

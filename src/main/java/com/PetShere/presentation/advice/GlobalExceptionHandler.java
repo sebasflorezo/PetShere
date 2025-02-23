@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<String> handleAuthorizationDeniedException(AuthorizationDeniedException exception) {
-        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<String>(exception.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

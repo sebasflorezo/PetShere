@@ -50,6 +50,7 @@ public class Constants {
             - Caracteres especiales
             """;
 
+    public static final String PAYMENT_METHOD_NOT_FOUND = "Método de pago no válido";
     public static final String ROLE_NOT_FOUND_MESSAGE = "Rol no encontrado";
 
     // Regular expresions

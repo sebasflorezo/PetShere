@@ -1,5 +1,6 @@
 package com.PetShere.presentation.dto.facture;
 
+import com.PetShere.persistence.model.facture.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,5 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FactureDto {
     private Long id;
-    private Long client_id;
+    private String clientDocument;
+    private Double totalAmount;
+    private PaymentMethod paymentMethod;
 }

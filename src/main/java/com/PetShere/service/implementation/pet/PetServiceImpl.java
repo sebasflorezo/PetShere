@@ -73,6 +73,9 @@ public class PetServiceImpl implements IPetService {
         User user = AppUtil.getCurrentUser(userRepository)
                 .orElseThrow(() -> new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER));
 
+        if (!petDto.getOwnerDocument().equals(user.getDocument()))
+            throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
+
         Validations.validatePetDto(petDto);
         Pet pet = PetMapper.toEntity(petDto);
         pet.setOwner(user);
