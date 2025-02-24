@@ -3,6 +3,7 @@ package com.PetShere.persistence.model.reservation;
 import com.PetShere.persistence.model.facture.Facture;
 import com.PetShere.persistence.model.pet.Pet;
 import com.PetShere.persistence.model.service.Service;
+import com.PetShere.persistence.model.user.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,7 @@ public class Reservation {
     private Service service;
     private LocalDateTime reservationStart;
     private LocalDateTime reservationEnd;
+    @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
     private Long price;
     private LocalDateTime createdAt;

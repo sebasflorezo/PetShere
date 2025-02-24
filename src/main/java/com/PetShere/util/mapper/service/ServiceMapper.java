@@ -9,6 +9,7 @@ public class ServiceMapper {
                 .id(service.getId())
                 .name(service.getName())
                 .price(service.getPrice())
+                .state(service.getState())
                 .build();
     }
 
@@ -17,6 +18,7 @@ public class ServiceMapper {
                 .id(serviceDto.getId())
                 .name(serviceDto.getName())
                 .price(serviceDto.getPrice())
+                .state(serviceDto.getState())
                 .build();
     }
 }

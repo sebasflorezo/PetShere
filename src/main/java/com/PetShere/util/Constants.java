@@ -28,11 +28,13 @@ public class Constants {
 
     // General
     public static final String NOT_FOUND_GENERIC = "No encontrado";
+    public static final String USER_NOT_FOUND = "Usuario no encontrado";
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
     public static final String USER_NOT_FOUND_BY_ID = "Usuario no encontrado con id: ";
     public static final String USER_NOT_FOUND_BY_DOCUMENT = "Usuario no encontrado con documento: ";
     public static final String PET_NOT_FOUND_BY_ID = "Mascota no encontrada con id: ";
     public static final String JWT_CANT_RENEW = "El token no puede ser renovado";
+    public static final String SERVICE_NOT_FOUND = "Servicio no encontrado";
 
     // Validations
     public static final String NULL_REGISTER_MESSAGE = "Formulario de registro no es válido";
