@@ -27,6 +27,13 @@ public class FactureServiceImpl implements IFactureService {
     private final IFactureRepository factureRepository;
     private final IUserRepository userRepository;
 
+    public List<FactureDto> getAllFactures() {
+        return factureRepository.findAll()
+                .stream()
+                .map(FactureMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     public FactureDto getFactureById(Long id) {
         FactureDto facture = factureRepository.findById(id)
                 .map(FactureMapper::toDto)

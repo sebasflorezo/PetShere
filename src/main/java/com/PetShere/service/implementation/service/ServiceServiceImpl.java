@@ -12,7 +12,6 @@ import com.PetShere.util.Constants;
 import com.PetShere.util.mapper.service.ServiceMapper;
 import lombok.RequiredArgsConstructor;
 
-import javax.net.ssl.SSLSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
