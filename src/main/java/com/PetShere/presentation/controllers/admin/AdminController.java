@@ -2,8 +2,10 @@ package com.PetShere.presentation.controllers.admin;
 
 import com.PetShere.persistence.model.user.Role;
 import com.PetShere.service.implementation.admin.AdminServiceImpl;
+import com.PetShere.service.implementation.facture.FactureServiceImpl;
 import com.PetShere.service.implementation.medicalHistory.MedicalHistoryImpl;
 import com.PetShere.service.implementation.pet.PetServiceImpl;
+import com.PetShere.service.implementation.service.ServiceServiceImpl;
 import com.PetShere.util.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ public class AdminController {
     private final AdminServiceImpl adminServiceImpl;
     private final MedicalHistoryImpl medicalHistoryImpl;
     private final PetServiceImpl petServiceImpl;
+    private final FactureServiceImpl factureServiceImpl;
+    private final ServiceServiceImpl serviceServiceImpl;
 
     @PostMapping("/change-user-role")
     public ResponseEntity<?> changeUserRole(@RequestBody JsonNode body) {
@@ -64,13 +68,17 @@ public class AdminController {
 
     @GetMapping("/factures")
     public ResponseEntity<?> getFactures() {
-        // TODO: Obtener facturas del servicio
-        return null;
+        return ResponseEntity.ok(factureServiceImpl.getAllFactures());
     }
 
     @GetMapping("/reservations")
     public ResponseEntity<?> getReservation() {
-        // TODO: Obtener facturas del servicio
+        // TODO: Obtener todas las reservas
         return null;
+    }
+
+    @GetMapping("/services")
+    public ResponseEntity<?> getServices() {
+        return ResponseEntity.ok(serviceServiceImpl.getServices());
     }
 }

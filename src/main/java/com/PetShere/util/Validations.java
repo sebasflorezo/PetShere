@@ -5,6 +5,8 @@ import com.PetShere.presentation.dto.auth.LoginRequest;
 import com.PetShere.presentation.dto.auth.RegisterRequest;
 import com.PetShere.presentation.dto.pet.PetDto;
 import com.PetShere.persistence.model.user.Role;
+import com.PetShere.presentation.dto.reservation.ReservationDto;
+import com.PetShere.presentation.dto.service.ServiceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -86,5 +88,17 @@ public class Validations {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(Constants.ROLE_NOT_FOUND_MESSAGE);
         }
+    }
+
+    public static void validateService(ServiceDto serviceDto) {
+        if (serviceDto.getName() == null || serviceDto.getName().isEmpty())
+            throw new IllegalArgumentException(Constants.EMPTY_SERVICE_NAME_MESSAGE);
+
+        if (serviceDto.getPrice() == null || serviceDto.getPrice() <= 0)
+            throw new IllegalArgumentException(Constants.INVALID_SERVICE_PRICE_MESSAGE);
+    }
+
+    public static void validateReservation(ReservationDto reservationDto) {
+        // TODO
     }
 }

@@ -52,6 +52,8 @@ public class Constants {
             - Caracteres especiales
             """;
 
+    public static final String INVALID_SERVICE_PRICE_MESSAGE = "El precio del servicio no es válido";
+    public static final String EMPTY_SERVICE_NAME_MESSAGE = "El nombre del servicio no puede estar vacío";
     public static final String PAYMENT_METHOD_NOT_FOUND = "Método de pago no válido";
     public static final String ROLE_NOT_FOUND_MESSAGE = "Rol no encontrado";
 

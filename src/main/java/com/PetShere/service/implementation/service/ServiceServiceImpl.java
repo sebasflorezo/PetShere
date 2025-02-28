@@ -9,6 +9,7 @@ import com.PetShere.presentation.dto.service.ServiceDto;
 import com.PetShere.service.interfaces.IServiceService;
 import com.PetShere.util.AppUtil;
 import com.PetShere.util.Constants;
+import com.PetShere.util.Validations;
 import com.PetShere.util.mapper.service.ServiceMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -65,7 +66,7 @@ public class ServiceServiceImpl implements IServiceService {
     }
 
     public Service createService(ServiceDto serviceDto) {
-        // TODO: Agregar validaciones
+        Validations.validateService(serviceDto);
         Service service = ServiceMapper.toEntity(serviceDto);
         if (serviceDto.getState() == null)
             service.setState(true);

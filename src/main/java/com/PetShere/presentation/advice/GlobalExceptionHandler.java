@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorDetails>(
                 ErrorDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .errorType(exception.getClass().getTypeName())
+                        .errorType(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.BAD_REQUEST
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorDetails>(
                 ErrorDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .errorType(exception.getClass().getTypeName())
+                        .errorType(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.BAD_GATEWAY
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorDetails>(
                 ErrorDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .errorType(exception.getClass().getTypeName())
+                        .errorType(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.BAD_REQUEST
@@ -68,7 +68,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorDetails>(
                 ErrorDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .errorType(exception.getClass().getTypeName())
+                        .errorType(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.NOT_FOUND
@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorDetails>(
                 ErrorDetails.builder()
                         .timestamp(LocalDateTime.now())
-                        .errorType(exception.getClass().getTypeName())
+                        .errorType(exception.getClass().getSimpleName())
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.NOT_FOUND

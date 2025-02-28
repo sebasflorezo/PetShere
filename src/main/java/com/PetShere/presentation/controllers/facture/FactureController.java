@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -34,9 +36,14 @@ public class FactureController {
 
     @PostMapping("/{id}/reservation")
     @PreAuthorize(Constants.CLIENT_AUTHORITY)
-    public ResponseEntity<?> createReservationFacture(@PathVariable Long id) {
-        // TODO: Crear una reserva para la factura (id de factura)
-        reservationServiceImpl.createReservationForFacture(null);
-        return null;
+    public ResponseEntity<?> createReservationFacture(@PathVariable Long id, @RequestBody ReservationDto reservationDto) {
+        reservationDto.setFactureId(id);
+        URI location = ServletUriComponentsBuilder
+                .fromPath("/reservations")
+                .path("/{id}")
+                .buildAndExpand(reservationServiceImpl.createReservationForFacture(reservationDto).getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 }
