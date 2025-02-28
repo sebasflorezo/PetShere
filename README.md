@@ -23,17 +23,16 @@ Este sistema está en desarrollo activo y actualmente se encuentra en la etapa d
 
 ### Frontend
 - **Lenguaje:** JavaScript
-- **Framework:** React
+- **Framework:** Angular
 
 ### Otros
 - **Control de Versiones:** Git y GitHub
 - **Gestión de Dependencias:** Maven para el backend y npm para el frontend.
 
 ---
-
 ## Autores
-| [<img src="https://avatars.githubusercontent.com/u/109894549?v=4" width=115><br><sub>Johan Sebastian Florez Ospina</sub>](https://github.com/sebasflorezo) | [<img src="https://avatars.githubusercontent.com/u/106800885?v=4" width=115><br><sub>Brayan Alexis Rojas Correa</sub>](https://github.com/DevHurt) | 
-|:----------------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| [<img src="https://github.com/sebasflorezo.png" width=115><br><sub>Johan Sebastian Florez Ospina</sub>](https://github.com/sebasflorezo) | [<img src="https://github.com/DevHurt.png" width=115><br><sub>Brayan Alexis Rojas Correa</sub>](https://github.com/DevHurt) | 
+|:----------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 
 ## Licencia
 

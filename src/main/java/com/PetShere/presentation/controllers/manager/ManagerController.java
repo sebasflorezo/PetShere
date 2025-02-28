@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/manager")
+@RequestMapping("/managers")
 @RequiredArgsConstructor
 public class ManagerController {
 
@@ -22,5 +22,5 @@ public class ManagerController {
         return ResponseEntity.ok(managerServiceImpl.getUserRoles());
     }
 
-    // TODO: implementar métodos para generar reportes, sea acá o en reports
+    // TODO: implementar métodos para generar reportes ( que retornen datos para el reporte que se visualice en el front )
 }

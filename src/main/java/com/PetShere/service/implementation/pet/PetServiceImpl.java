@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PetServiceImpl implements IPetService {
 
-    private final IPetRepository petRespository;
+    private final IPetRepository petRepository;
     private final IUserRepository userRepository;
 
     @Override
     public List<PetDto> getAllPets() {
-        return petRespository.findAll()
+        return petRepository.findAll()
                 .stream()
                 .map(PetMapper::toDto)
                 .collect(Collectors.toList());
@@ -38,30 +38,30 @@ public class PetServiceImpl implements IPetService {
 
     @Override
     public PetDto getPetById(Long id) {
-        PetDto pet = petRespository.findById(id)
+        PetDto pet = petRepository.findById(id)
                 .map(PetMapper::toDto)
-                .filter(this::isPetOwnedByUser)
+                .filter(this::isPetOwnedByClient)
                 .orElseThrow(() -> new ResourceNotFoundException(Constants.PET_NOT_FOUND_BY_ID + id));
 
-        return (pet == null || !isPetOwnedByUser(pet)) ? null : pet;
+        return (pet == null || !isPetOwnedByClient(pet)) ? null : pet;
     }
 
     @Override
-    public List<PetDto> getPetsByOwnerDocument(String document) {
+    public List<PetDto> getPetsByClientDocument(String document) {
         Optional<User> user = AppUtil.getCurrentUser(userRepository);
         if (user.isEmpty() || !user.get().getDocument().equals(document))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
 
-        return petRespository.findByOwnerDocument(document)
+        return petRepository.findByOwnerDocument(document)
                 .stream()
                 .map(PetMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    public List<PetDto> getPetsByOwnerDocument() {
+    public List<PetDto> getPetsByClientDocument() {
         return AppUtil.getCurrentUser(userRepository)
                 .map(User::getDocument)
-                .map(petRespository::findByOwnerDocument)
+                .map(petRepository::findByOwnerDocument)
                 .orElseGet(Collections::emptyList)
                 .stream()
                 .map(PetMapper::toDto)
@@ -73,21 +73,24 @@ public class PetServiceImpl implements IPetService {
         User user = AppUtil.getCurrentUser(userRepository)
                 .orElseThrow(() -> new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER));
 
+        if (!petDto.getOwnerDocument().equals(user.getDocument()))
+            throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
+
         Validations.validatePetDto(petDto);
         Pet pet = PetMapper.toEntity(petDto);
         pet.setOwner(user);
         pet.setState(true);
 
-        petRespository.save(pet);
+        petRepository.save(pet);
         return pet;
     }
 
     @Override
     public Pet updatePet(Long id, PetDto petDto) {
-        Pet pet = petRespository.findById(id)
+        Pet pet = petRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(Constants.PET_NOT_FOUND_BY_ID));
 
-        if (!isPetOwnedByUser(PetMapper.toDto(pet)))
+        if (!isPetOwnedByClient(PetMapper.toDto(pet)))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
 
         pet.setName(petDto.getName());
@@ -97,33 +100,33 @@ public class PetServiceImpl implements IPetService {
         pet.setWeight(petDto.getWeight());
         pet.setFoodPreferences(petDto.getFoodPreferences());
 
-        petRespository.save(pet);
+        petRepository.save(pet);
         return pet;
     }
 
     @Override
-    public void deletePet(Long id) {
+    public void changePetState(Long id) {
         Optional<User> user = AppUtil.getCurrentUser(userRepository);
-        if (user.isEmpty() || !isPetOwnedByUser(id))
+        if (user.isEmpty() || !isPetOwnedByClient(id))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
 
         // TODO: no deber permitir eliminar si siene reservas activas
 
-        petRespository.findById(id).ifPresent(p -> {
-            p.setState(false);
-            petRespository.save(p);
+        petRepository.findById(id).ifPresent(p -> {
+            p.setState(!p.getState());
+            petRepository.save(p);
         });
     }
 
-    private boolean isPetOwnedByUser(PetDto pet) {
+    private boolean isPetOwnedByClient(PetDto pet) {
         return AppUtil.getCurrentUser(userRepository)
-                .map(user -> petRespository.existsByIdAndOwnerDocument(pet.getId(), user.getDocument())
+                .map(user -> petRepository.existsByIdAndOwnerDocument(pet.getId(), user.getDocument())
                 ).orElse(false);
     }
 
-    private boolean isPetOwnedByUser(Long id) {
+    private boolean isPetOwnedByClient(Long id) {
         return AppUtil.getCurrentUser(userRepository)
-                .map(user -> petRespository.existsByIdAndOwnerDocument(id, user.getDocument())
+                .map(user -> petRepository.existsByIdAndOwnerDocument(id, user.getDocument())
                 ).orElse(false);
     }
 }

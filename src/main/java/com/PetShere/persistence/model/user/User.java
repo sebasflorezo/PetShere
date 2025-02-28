@@ -9,6 +9,7 @@ import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,6 +47,8 @@ public class User implements UserDetails {
     private Role role;
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Pet> pets;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -75,6 +78,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return state;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }
 
