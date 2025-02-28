@@ -1,5 +1,6 @@
 package com.PetShere.presentation.controllers.reservation;
 
+import com.PetShere.service.implementation.reservation.ReservationServiceImpl;
 import com.PetShere.util.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ReservationController {
 
-    @GetMapping
-    @PreAuthorize(Constants.CLIENT_AUTHORITY)
-    public ResponseEntity<?> getReservation() {
-        // TODO: Obtener todas las reservas del cliente
-        return null;
-    }
+    private final ReservationServiceImpl reservationServiceImpl;
 
     @GetMapping("/{id}")
     @PreAuthorize(Constants.CLIENT_AUTHORITY)
     public ResponseEntity<?> getReservation(@PathVariable Long id) {
-        // TODO: Obtener una reserva por su id (validar en servicio que sea el cliente)
-        return null;
+        return ResponseEntity.ok(reservationServiceImpl.getReservationById(id));
     }
 
     @PutMapping("/{id}")

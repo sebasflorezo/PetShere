@@ -6,9 +6,9 @@ import com.PetShere.persistence.repository.facture.IFactureRepository;
 import com.PetShere.persistence.repository.pet.IPetRepository;
 import com.PetShere.persistence.repository.reservation.IReservationRepository;
 import com.PetShere.persistence.repository.user.IUserRepository;
-import com.PetShere.presentation.dto.facture.FactureDto;
 import com.PetShere.presentation.dto.reservation.ReservationDto;
 import com.PetShere.service.exception.AuthorizationDeniedException;
+import com.PetShere.service.exception.ResourceNotFoundException;
 import com.PetShere.service.interfaces.IReservationService;
 import com.PetShere.util.AppUtil;
 import com.PetShere.util.Constants;
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,11 +30,20 @@ public class ReservationServiceImpl implements IReservationService {
     private final IPetRepository petRepository;
     private final IFactureRepository factureRepository;
 
-    public List<ReservationDto> getReservationsByFactureId(Long id) {
-        if (!isFactureFromClient(id))
+    public ReservationDto getReservationById(Long id) {
+        ReservationDto reservation = reservationRepository.findById(id)
+                .map(ReservationMapper::toDto)
+                .filter(r -> isFactureFromClient(r.getFactureId()))
+                .orElseThrow(() -> new ResourceNotFoundException(Constants.NOT_FOUND_GENERIC));
+
+        return (reservation == null || !isFactureFromClient(reservation.getFactureId())) ? null : reservation;
+    }
+
+    public List<ReservationDto> getReservationsByFactureId(Long factureId) {
+        if (!isFactureFromClient(factureId))
             throw new AuthorizationDeniedException(Constants.UNAUTHORIZED_USER);
 
-        return reservationRepository.findByFactureId(id)
+        return reservationRepository.findByFactureId(factureId)
                 .stream()
                 .map(ReservationMapper::toDto)
                 .collect(Collectors.toList());
