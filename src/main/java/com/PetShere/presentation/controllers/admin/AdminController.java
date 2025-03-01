@@ -5,6 +5,7 @@ import com.PetShere.service.implementation.admin.AdminServiceImpl;
 import com.PetShere.service.implementation.facture.FactureServiceImpl;
 import com.PetShere.service.implementation.medicalHistory.MedicalHistoryImpl;
 import com.PetShere.service.implementation.pet.PetServiceImpl;
+import com.PetShere.service.implementation.reservation.ReservationServiceImpl;
 import com.PetShere.service.implementation.service.ServiceServiceImpl;
 import com.PetShere.util.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,6 +27,7 @@ public class AdminController {
     private final PetServiceImpl petServiceImpl;
     private final FactureServiceImpl factureServiceImpl;
     private final ServiceServiceImpl serviceServiceImpl;
+    private final ReservationServiceImpl reservationServiceImpl;
 
     @PostMapping("/change-user-role")
     public ResponseEntity<?> changeUserRole(@RequestBody JsonNode body) {
@@ -73,8 +75,7 @@ public class AdminController {
 
     @GetMapping("/reservations")
     public ResponseEntity<?> getReservation() {
-        // TODO: Obtener todas las reservas
-        return null;
+        return ResponseEntity.ok(reservationServiceImpl.getAllReservations());
     }
 
     @GetMapping("/services")

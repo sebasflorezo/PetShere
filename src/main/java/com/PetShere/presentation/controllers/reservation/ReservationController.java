@@ -1,5 +1,6 @@
 package com.PetShere.presentation.controllers.reservation;
 
+import com.PetShere.presentation.dto.reservation.ReservationDto;
 import com.PetShere.service.implementation.reservation.ReservationServiceImpl;
 import com.PetShere.util.Constants;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,8 @@ public class ReservationController {
 
     @PutMapping("/{id}")
     @PreAuthorize(Constants.CLIENT_AUTHORITY)
-    public ResponseEntity<?> updateReservationFacture(@PathVariable Long id) {
-        // TODO: Actualizar una reserva pra la factura
-        return null;
+    public ResponseEntity<?> updateReservationFacture(@PathVariable Long id, @RequestBody ReservationDto reservationDto) {
+        reservationServiceImpl.updateReservation(id, reservationDto);
+        return ResponseEntity.noContent().build();
     }
 }
