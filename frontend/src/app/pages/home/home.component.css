@@ -1,0 +1,126 @@
+.welcome {
+  display: grid;
+  background: #f5f5f5;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 3, 1fr;
+  gap: 10px;
+}
+
+/* Message */
+.message {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+.message .pets {
+  max-width: 100vw;
+  min-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.message .text {
+  max-width: 40%;
+  text-align: left;
+  position: absolute;
+  margin-right: 50px;
+}
+
+.message .text h1 {
+  font-family: "DynaPuff", sans-serif;
+  font-size: clamp(1.5rem, 5vw, 4rem);
+}
+
+.message .text p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* Categories */
+.categories {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.categories h1 {
+  font-family: "DynaPuff", sans-serif;
+  font-size: 2.2rem;
+}
+
+.categories .container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 8px;
+}
+
+.category {
+  position: relative;
+  text-align: center;
+}
+
+.category img {
+  width: 80%;
+}
+
+.category .category-text {
+  color: black;
+  font-weight: bold;
+  position: absolute;
+  bottom: 10%;
+  padding: 10px 30px;
+  border-radius: 20px;
+  font-size: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Testimonials */
+.testimonials {
+  position: relative;
+}
+
+.testimonials .testimony-bg {
+  max-width: 100vw;
+  min-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr, 2fr;
+  grid-template-rows: 1fr 2fr;
+  column-gap: 40px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 24px;
+  max-height: 70%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+}
+
+.testimonials .content .user-testimony {
+  grid-row: span 2 / span 2;
+  place-self: center;
+  width: 100%;
+}
+
+.testimonials .content h1 {
+  font-family: "DynaPuff", sans-serif;
+  font-size: clamp(1.5rem, 5vw, 4rem);
+  grid-column-start: 2;
+  grid-row-start: 1;
+  justify-self: start;
+}
+
+.testimonials .content p {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  grid-column-start: 2;
+  grid-row-start: 2;
+  justify-self: start;
+  max-height: 10px;
+}
