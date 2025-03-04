@@ -13,14 +13,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  align-items: start;
 }
 
 .footer-top {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
   align-items: stretch;
 }
 
@@ -58,7 +55,7 @@
   float: left;
   margin: 20px;
   border-radius: 10px;
-  background-color: #F5F5F580;
+  background-color: #f5f5f580;
 }
 
 /* footer bottom */
@@ -68,4 +65,8 @@
   color: white;
   text-align: center;
   margin-top: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
 }
