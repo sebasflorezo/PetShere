@@ -6,9 +6,11 @@ import com.PetShere.presentation.dto.auth.AuthResponse;
 import com.PetShere.presentation.dto.auth.LoginRequest;
 import com.PetShere.presentation.dto.auth.RegisterRequest;
 import com.PetShere.persistence.repository.user.IUserRepository;
+import com.PetShere.service.implementation.mail.MailSenderService;
 import com.PetShere.util.Validations;
 import com.PetShere.util.Constants;
 import com.PetShere.service.exception.NotFoundException;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,8 +26,9 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final MailSenderService mailSenderService;
 
-    public AuthResponse register(RegisterRequest registerRequest) {
+    public AuthResponse register(RegisterRequest registerRequest) throws MessagingException {
         Validations.validateRegisterRequest(registerRequest);
 
         User user = User.builder()
@@ -42,8 +45,8 @@ public class AuthService {
                 .role(Role.CLIENT)
                 .build();
 
-        // TODO: enviar mail de verificación antes de guardar
         userRepository.save(user);
+        mailSenderService.sendWelcomeEmail(user.getEmail(), user.getFirstName());
 
         return AuthResponse.builder()
                 .token(jwtService.getToken(user))
