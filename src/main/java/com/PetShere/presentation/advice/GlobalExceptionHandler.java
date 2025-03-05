@@ -4,6 +4,7 @@ import com.PetShere.presentation.dto.error.ErrorDetails;
 import com.PetShere.service.exception.AuthorizationDeniedException;
 import com.PetShere.service.exception.NotFoundException;
 import com.PetShere.service.exception.ResourceNotFoundException;
+import jakarta.mail.MessagingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -84,6 +85,18 @@ public class GlobalExceptionHandler {
                         .message(exception.getMessage())
                         .build(),
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(MessagingException exception) {
+        return new ResponseEntity<ErrorDetails>(
+                ErrorDetails.builder()
+                        .timestamp(LocalDateTime.now())
+                        .errorType(exception.getClass().getSimpleName())
+                        .message(exception.getMessage())
+                        .build(),
+                HttpStatus.BAD_REQUEST
         );
     }
 }

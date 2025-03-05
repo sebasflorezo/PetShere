@@ -62,4 +62,7 @@ public class Constants {
     // Regular expresions
     public static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     public static final String EMAIL_REGEX = "^[\\w\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
+    // Email subjects
+    public static final String EMAIL_WELCOME_MESSAGE = "Bienvenido a PetShere, ";
 }

@@ -93,10 +93,42 @@ public class AdminController {
     @PostMapping("/mail-test")
     public ResponseEntity<?> sendTestMail(@RequestBody MailStructure mailStructure) {
         try {
-            mailSenderService.sendEmail(
+            mailSenderService.sendSimpleEmail(
                     mailStructure.getToEmail(),
                     mailStructure.getSubject(),
                     mailStructure.getBody()
+            );
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception exception) {
+            return new ResponseEntity<ErrorDetails>(
+                    ErrorDetails.builder()
+                            .timestamp(LocalDateTime.now())
+                            .errorType(exception.getClass().getSimpleName())
+                            .message(exception.getMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @PostMapping("/mail-test-html")
+    public ResponseEntity<?> sendTestHtmlMail(@RequestBody MailStructure mailStructure) {
+        try {
+            mailSenderService.sendHtmlEmail(
+                    mailStructure.getToEmail(),
+                    mailStructure.getSubject(),
+                    """
+                              <html>
+                                  <body>
+                                      <h1 style="color: #3498db;">Welcome to PetShere</h1>
+                                      <p>Thank you for using our service. Below is your information:</p>
+                                      <hr>
+                                      <p style="font-size: 14px;">Best regards,</p>
+                                      <p style="font-weight: bold;">PetShere Team</p>
+                                  </body>
+                              </html>
+                            """
             );
 
             return ResponseEntity.noContent().build();
