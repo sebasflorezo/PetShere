@@ -3,6 +3,8 @@
 }
 
 body {
-    padding-top: 50px;
-    margin: 0;
+    position: relative;
+    padding-top: 60px;
+    padding-bottom: 210px;
+    margin: auto 0;
 }
