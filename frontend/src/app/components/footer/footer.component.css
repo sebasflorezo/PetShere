@@ -1,80 +1,79 @@
 .footer {
-  position: absolute;
+  display: flex;
+  flex-direction: column;
+
   bottom: 0;
-  height: 200px;
-  width: 100%;
-  background: #333;
   color: white;
-  padding-top: 10px;
 }
 
 /* footer top */
 
-.container {
-  width: 90%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .footer-top {
   display: flex;
   justify-content: center;
-  align-items: stretch;
+
+  background: #333;
+  height: 180px;
 }
 
-.footer-section {
-  flex: 1;
-  text-align: center;
+.footer-top hr {
+  border: 2px solid #f5f5f580;
+  border-radius: 10px;
+  align-self: center;
+  height: 50%;
 }
 
-.logo-container {
+.footer-top .logo-container {
+  display: flex;
+  justify-content: inherit;
+  align-items: center;
+  width: 45%;
+}
+
+.footer-top .logo-container .footer-logo {
+  text-align: left;
+  width: 120px;
+}
+
+.footer-top .logo-container p {
+  margin: 0;
+  width: 85%;
+}
+
+.footer-top .media-container {
   display: flex;
   align-items: center;
-  justify-content: start;
-  gap: 15px;
-  text-align: left;
-  flex: 2;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.logo-container p {
-  text-align: left;
-}
-
-.footer-logo {
-  max-width: 120px;
-  flex-shrink: 0;
-}
-
-.social-icons a img {
+.footer-top .media-container .social-icons a img {
   width: 30px;
-  margin: 0 10px;
+  margin: 0 15px;
   padding: 10px;
   background-color: #4caf50;
   border-radius: 10px;
 }
 
-.footer-top .separator {
-  width: 3px;
-  height: 80%;
-  float: left;
-  margin: 20px;
-  border-radius: 10px;
-  background-color: #f5f5f580;
+.footer-top .location-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer-top .location-container p {
+  width: 80%;
 }
 
 /* footer bottom */
 
 .footer-bottom {
-  background: #4caf50;
-  color: white;
   text-align: center;
-  margin-top: 20px;
-  width: 100%;
-  bottom: 0;
-  position: inherit;
+  background: #4caf50;
 }
 
 .footer-bottom p {
-  margin: 0;
+  margin: 5px;
 }
