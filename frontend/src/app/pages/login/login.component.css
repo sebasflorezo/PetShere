@@ -55,6 +55,16 @@
   align-items: center;
 }
 
+.entries .error-message {
+  margin: 5px 0;
+  width: 100%;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 8px 15px;
+  color: red;
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
 .entries .form-label {
   align-self: flex-start;
 }
@@ -110,6 +120,11 @@
 
 .entries .submit-buttons button:hover {
   background-color: #1c8484;
+}
+
+.entries .submit-buttons button:disabled {
+  cursor: auto;
+  background-color: gray
 }
 
 /* Toggle button (copied from a template xd) */
