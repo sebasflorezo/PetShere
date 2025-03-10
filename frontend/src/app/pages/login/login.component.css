@@ -26,21 +26,21 @@
 /* Login Menu */
 
 .login-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
   background: white;
   border-radius: 15px;
-  width: 40%;
   height: 70%;
+  width: 40%;
 }
 
 .logo-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  margin: 20px;
 }
 
 .logo-container p {
@@ -52,15 +52,22 @@
 .entries {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin: 0 8%;
+  align-items: center;
+}
+
+.entries .form-label {
+  align-self: flex-start;
+}
+
+.entries a {
+  text-decoration-line: none;
 }
 
 .entries input {
-  width: 95%;
+  border: none;
+  width: 100%;
   padding: 8px 15px;
   border-radius: 5px;
-  border: none;
   background-color: #f2f2f2;
 }
 
@@ -72,28 +79,28 @@
   margin: 20px 0 0;
 }
 
-.options {
+.entries .options {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  margin: 0 8%;
+  gap: 20px;
+  width: 100%;
 }
 
-.options .switch-container {
+.entries .options .switch-container {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
 }
 
-.submit-buttons {
+.entries .submit-buttons {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.submit-buttons button {
-  padding: 10px 30%;
+.entries .submit-buttons button {
+  padding: 10px 100%;
   border-radius: 5px;
   cursor: pointer;
   border: none;
@@ -101,7 +108,7 @@
   color: white;
 }
 
-.submit-buttons button:hover {
+.entries .submit-buttons button:hover {
   background-color: #1c8484;
 }
 
