@@ -9,16 +9,15 @@ import type { User } from "../models/user";
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-
-  // userData(token: string): Observable<string> {
-  //   return this.http.post<string>(`/clients`, token, hea);
-  // }
+  userData(token: string): Observable<string> {
+    return this.http.post<string>(`/clients`, token);
+  }
 
   login(credentials: Credentials): Observable<string> {
     return this.http.post<string>(`/api/v1/auth/login`, credentials);
   }
 
-  logout(user: User) {
+  logout(user: User): void {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
   }
@@ -33,11 +32,14 @@ export class AuthService {
     return token ? JSON.parse(token) : null;
   }
 
-  saveToken(token: String) {
+  saveToken(token: String): void {
     localStorage.setItem("token", JSON.stringify(token));
   }
 
-  saveUser(user: User) {
+  saveUser(user: User): void {
     localStorage.setItem("user", JSON.stringify(user));
+  }
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

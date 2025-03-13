@@ -10,5 +10,4 @@ export interface User {
     role: UserRole;
     name: string;
     email: string;
-    token: string;
 }

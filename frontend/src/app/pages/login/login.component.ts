@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import type { Credentials } from "../../models/credentials";
+import { Credentials } from "../../models/credentials";
+import { UserRole } from "../../models/user";
 
 @Component({
   selector: "app-login",
@@ -10,7 +11,7 @@ import type { Credentials } from "../../models/credentials";
   templateUrl: "./login.component.html",
   styleUrl: "./login.component.css",
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   errorMessage = "";
   credentials: Credentials = {
     email: "",
@@ -23,16 +24,23 @@ export class LoginComponent {
     private authService: AuthService,
   ) {}
 
-  onSubmit() {
-    // TODO Validar entrada de los datos
+  ngOnInit(): void {
+    if (this.authService.isAuthenticated()) {
+      this.redirectToDashBoard();
+    }
+  }
 
+  onSubmit(): void {
     this.authService.login(this.credentials).subscribe({
       next: (token) => {
         if (this.rememberMe) {
+          // TODO guardar usuario
           this.authService.saveToken(token);
         }
 
-        this.router.navigate(["/dashboard"]);
+        if (this.authService.isAuthenticated()) {
+          this.redirectToDashBoard();
+        }
       },
       error: (err) => {
         console.error("Error al iniciar sesión: ", err);
@@ -40,5 +48,27 @@ export class LoginComponent {
           "Error al iniciar sesión, verifique sus credenciales.";
       },
     });
+  }
+
+  redirectToDashBoard(): void {
+    const role = this.authService.getUser()?.role;
+
+    switch (role) {
+      case UserRole.ADMIN:
+        this.router.navigate(["/admin-dashboard"]);
+        break;
+      case UserRole.CARER:
+        this.router.navigate(["/carer-dashboard"]);
+        break;
+      case UserRole.MANAGER:
+        this.router.navigate(["/manager-dashboard"]);
+        break;
+      case UserRole.USER:
+        this.router.navigate(["/dashboard"]);
+        break;
+      default:
+        this.router.navigate(["/dashboard"]);
+        break;
+    }
   }
 }
