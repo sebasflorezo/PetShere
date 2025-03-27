@@ -1,25 +1,42 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import type { Credentials } from "../models/credentials";
-import type { Observable } from "rxjs";
+import { BehaviorSubject, type Observable } from "rxjs";
 import type { User } from "../models/user";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
+  private authStatus = new BehaviorSubject<boolean>(this.hasToken());
+
   constructor(private http: HttpClient) {}
+
+  private hasToken(): boolean {
+    return !!this.getToken();
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    this.authStatus.next(this.hasToken());
+    // TODO validar token
+    return this.authStatus.asObservable();
+  }
+
   userData(token: string): Observable<string> {
-    return this.http.post<string>(`/clients`, token);
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.post<string>(`/clients`, {}, { headers });
   }
 
   login(credentials: Credentials): Observable<string> {
-    return this.http.post<string>(`/api/v1/auth/login`, credentials);
+    return this.http.post<string>(`/auth/login`, credentials);
   }
 
-  logout(user: User): void {
+  logout(): void {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    this.authStatus.next(false);
   }
 
   getUser(): User | null {
@@ -28,18 +45,22 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    const token = localStorage.getItem("token");
-    return token ? JSON.parse(token) : null;
+    return localStorage.getItem("token") || sessionStorage.getItem("token") || null;
   }
 
-  saveToken(token: String): void {
-    localStorage.setItem("token", JSON.stringify(token));
+  saveLocalToken(token: string): void {
+    localStorage.setItem("token", token);
   }
 
-  saveUser(user: User): void {
+  saveSessionToken(token: string): void {
+    sessionStorage.setItem("token", token);
+  }
+
+  saveLocalUser(user: User): void {
     localStorage.setItem("user", JSON.stringify(user));
   }
-  isAuthenticated(): boolean {
-    return !!this.getToken();
+
+  saveSessionUser(user: User): void {
+    sessionStorage.setItem("user", JSON.stringify(user));
   }
 }

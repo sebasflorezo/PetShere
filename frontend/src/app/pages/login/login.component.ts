@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     if (this.authService.isAuthenticated()) {
       this.redirectToDashBoard();
     }
@@ -33,17 +33,20 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.authService.login(this.credentials).subscribe({
       next: (token) => {
-        if (this.rememberMe) {
-          // TODO guardar usuario
-          this.authService.saveToken(token);
+        if (!this.authService.isAuthenticated()) {
+          return;
         }
 
-        if (this.authService.isAuthenticated()) {
-          this.redirectToDashBoard();
+        if (this.rememberMe) {
+          // TODO guardar usuario
+          this.authService.saveLocalToken(token);
         }
+
+        // TODO guardar usuario en sessionStorage
+        this.authService.saveSessionToken(token);
+        this.redirectToDashBoard();
       },
       error: (err) => {
-        console.error("Error al iniciar sesión: ", err);
         this.errorMessage =
           "Error al iniciar sesión, verifique sus credenciales.";
       },
