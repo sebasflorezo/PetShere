@@ -4,7 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AboutComponent } from './pages/about/about.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { ServicesComponent } from './pages/services/services.component';
-import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -13,5 +13,5 @@ export const routes: Routes = [
     { path: 'services', component: ServicesComponent },
     { path: 'login', component: LoginComponent, pathMatch: "full" },
 
-    { path: '**', component: PagenotfoundComponent }
+    { path: '**', component: NotFoundComponent }
 ];
