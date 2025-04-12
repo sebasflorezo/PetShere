@@ -1,11 +1,12 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import type { Credentials } from "../models/credentials";
-import { BehaviorSubject, type Observable } from "rxjs";
-import type { User } from "../models/user";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, type Observable } from 'rxjs';
+import type { LoginCredentials } from '../models/loginCredentials';
+import type { User } from '../models/user';
+import type { AuthResponse } from '../models/authResponse';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   private authStatus = new BehaviorSubject<boolean>(this.hasToken());
@@ -16,51 +17,58 @@ export class AuthService {
     return !!this.getToken();
   }
 
+  private isBrowser(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.localStorage !== 'undefined'
+    );
+  }
+
   isAuthenticated(): Observable<boolean> {
     this.authStatus.next(this.hasToken());
-    // TODO validar token
     return this.authStatus.asObservable();
   }
 
-  userData(token: string): Observable<string> {
+  fetchUserData(token: string): Observable<User> {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    return this.http.post<string>(`/clients`, {}, { headers });
+    return this.http.get<User>(`/api/v1/clients`, { headers });
   }
 
-  login(credentials: Credentials): Observable<string> {
-    return this.http.post<string>(`/auth/login`, credentials);
+  login(credentials: LoginCredentials): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`/api/v1/auth/login`, credentials);
   }
 
   logout(): void {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    sessionStorage.removeItem("user");
-    sessionStorage.removeItem("token");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('token');
     this.authStatus.next(false);
   }
 
   getUser(): User | null {
-    const user = localStorage.getItem("user");
+    const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
 
   getToken(): string | null {
-    return localStorage.getItem("token") || sessionStorage.getItem("token") || null;
+    if (!this.isBrowser()) return null;
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
   }
 
   saveLocalToken(token: string): void {
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
   }
 
   saveSessionToken(token: string): void {
-    sessionStorage.setItem("token", token);
+    sessionStorage.setItem('token', token);
   }
 
   saveLocalUser(user: User): void {
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   saveSessionUser(user: User): void {
-    sessionStorage.setItem("user", JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 }

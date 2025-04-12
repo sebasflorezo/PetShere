@@ -24,7 +24,9 @@
 
       <label for="password" class="form-label">Contraseña</label>
       <input
-        type="password"
+        [type]="showPassword ? 'text' : 'password'"
+        (mouseenter)="togglePasswordVisibility(true)"
+        (mouseleave)="togglePasswordVisibility(false)"
         name="password"
         id="password"
         placeholder="Ingresa tu contraseña"

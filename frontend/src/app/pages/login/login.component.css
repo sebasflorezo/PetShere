@@ -63,6 +63,7 @@
   padding: 8px 15px;
   color: red;
   background-color: rgba(255, 0, 0, 0.2);
+  text-align: center;
 }
 
 .entries .form-label {
@@ -124,7 +125,7 @@
 
 .entries .submit-buttons button:disabled {
   cursor: auto;
-  background-color: gray
+  background-color: gray;
 }
 
 /* Toggle button (copied from a template xd) */
