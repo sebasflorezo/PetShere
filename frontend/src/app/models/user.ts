@@ -1,13 +1,20 @@
 export enum UserRole {
-    ADMIN = "ADMIN",
-    USER = "USER",
-    MANAGER = "MANAGER",
-    CARER = "CARER",
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  MANAGER = 'MANAGER',
+  CARER = 'CARER',
 }
 
 export interface User {
-    id: number;
-    role: UserRole;
-    name: string;
-    email: string;
+  id: number;
+  document: string;
+  email: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  secondSurname: string;
+  phone: string;
+  direction: string;
+  state: boolean;
+  role: UserRole;
 }
