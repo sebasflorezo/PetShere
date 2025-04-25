@@ -1,18 +1,25 @@
 package com.PetShere.presentation.controllers.admin;
 
 import com.PetShere.persistence.model.user.Role;
+import com.PetShere.presentation.dto.error.ErrorDetails;
+import com.PetShere.presentation.dto.mail.MailStructure;
 import com.PetShere.service.implementation.admin.AdminServiceImpl;
 import com.PetShere.service.implementation.facture.FactureServiceImpl;
+import com.PetShere.service.implementation.mail.MailSenderService;
 import com.PetShere.service.implementation.medicalHistory.MedicalHistoryImpl;
 import com.PetShere.service.implementation.pet.PetServiceImpl;
+import com.PetShere.service.implementation.reservation.ReservationServiceImpl;
 import com.PetShere.service.implementation.service.ServiceServiceImpl;
 import com.PetShere.util.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @RestController
@@ -26,6 +33,8 @@ public class AdminController {
     private final PetServiceImpl petServiceImpl;
     private final FactureServiceImpl factureServiceImpl;
     private final ServiceServiceImpl serviceServiceImpl;
+    private final ReservationServiceImpl reservationServiceImpl;
+    private final MailSenderService mailSenderService;
 
     @PostMapping("/change-user-role")
     public ResponseEntity<?> changeUserRole(@RequestBody JsonNode body) {
@@ -73,12 +82,65 @@ public class AdminController {
 
     @GetMapping("/reservations")
     public ResponseEntity<?> getReservation() {
-        // TODO: Obtener todas las reservas
-        return null;
+        return ResponseEntity.ok(reservationServiceImpl.getAllReservations());
     }
 
     @GetMapping("/services")
     public ResponseEntity<?> getServices() {
         return ResponseEntity.ok(serviceServiceImpl.getServices());
+    }
+
+    @PostMapping("/mail-test")
+    public ResponseEntity<?> sendTestMail(@RequestBody MailStructure mailStructure) {
+        try {
+            mailSenderService.sendSimpleEmail(
+                    mailStructure.getToEmail(),
+                    mailStructure.getSubject(),
+                    mailStructure.getBody()
+            );
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception exception) {
+            return new ResponseEntity<ErrorDetails>(
+                    ErrorDetails.builder()
+                            .timestamp(LocalDateTime.now())
+                            .errorType(exception.getClass().getSimpleName())
+                            .message(exception.getMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
+    @PostMapping("/mail-test-html")
+    public ResponseEntity<?> sendTestHtmlMail(@RequestBody MailStructure mailStructure) {
+        try {
+            mailSenderService.sendHtmlEmail(
+                    mailStructure.getToEmail(),
+                    mailStructure.getSubject(),
+                    """
+                              <html>
+                                  <body>
+                                      <h1 style="color: #3498db;">Welcome to PetShere</h1>
+                                      <p>Thank you for using our service. Below is your information:</p>
+                                      <hr>
+                                      <p style="font-size: 14px;">Best regards,</p>
+                                      <p style="font-weight: bold;">PetShere Team</p>
+                                  </body>
+                              </html>
+                            """
+            );
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception exception) {
+            return new ResponseEntity<ErrorDetails>(
+                    ErrorDetails.builder()
+                            .timestamp(LocalDateTime.now())
+                            .errorType(exception.getClass().getSimpleName())
+                            .message(exception.getMessage())
+                            .build(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
     }
 }

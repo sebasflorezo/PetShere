@@ -27,7 +27,7 @@ public class Constants {
     public static final String UNAUTHORIZED_USER = "Usuario no autorizado";
 
     // General
-    public static final String NOT_FOUND_GENERIC = "No encontrado";
+    public static final String NOT_FOUND_GENERIC = "Recurso no encontrado";
     public static final String USER_NOT_FOUND = "Usuario no encontrado";
     public static final String USER_NOT_FOUND_BY_EMAIL = "Usuario no encontrado con email: ";
     public static final String USER_NOT_FOUND_BY_ID = "Usuario no encontrado con id: ";
@@ -52,12 +52,17 @@ public class Constants {
             - Caracteres especiales
             """;
 
-    public static final String INVALID_SERVICE_PRICE_MESSAGE = "El precio del servicio no es válido";
+    public static final String EMPTY_DATE_MESSAGE = "La fecha no puede ser nula";
+    public static final String INVALID_PRICE_MESSAGE = "El precio no es válido";
     public static final String EMPTY_SERVICE_NAME_MESSAGE = "El nombre del servicio no puede estar vacío";
     public static final String PAYMENT_METHOD_NOT_FOUND = "Método de pago no válido";
     public static final String ROLE_NOT_FOUND_MESSAGE = "Rol no encontrado";
+    public static final String END_DATE_BEFORE_START_DATE_MESSAGE = "La fecha final no puede ser anterior a la fecha inicial";
 
     // Regular expresions
     public static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
     public static final String EMAIL_REGEX = "^[\\w\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
+    // Email subjects
+    public static final String EMAIL_WELCOME_MESSAGE = "Bienvenido a PetShere, ";
 }

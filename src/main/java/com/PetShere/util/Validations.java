@@ -95,10 +95,20 @@ public class Validations {
             throw new IllegalArgumentException(Constants.EMPTY_SERVICE_NAME_MESSAGE);
 
         if (serviceDto.getPrice() == null || serviceDto.getPrice() <= 0)
-            throw new IllegalArgumentException(Constants.INVALID_SERVICE_PRICE_MESSAGE);
+            throw new IllegalArgumentException(Constants.INVALID_PRICE_MESSAGE);
     }
 
     public static void validateReservation(ReservationDto reservationDto) {
-        // TODO
+        if (reservationDto.getReservationStart() == null)
+            throw new IllegalArgumentException(Constants.EMPTY_DATE_MESSAGE);
+
+        if (reservationDto.getReservationEnd() == null)
+            throw new IllegalArgumentException(Constants.EMPTY_DATE_MESSAGE);
+
+        if (reservationDto.getReservationEnd().isBefore(reservationDto.getReservationStart()))
+            throw new IllegalArgumentException(Constants.END_DATE_BEFORE_START_DATE_MESSAGE);
+
+        if (reservationDto.getPrice() == null || reservationDto.getPrice() <= 0)
+            throw new IllegalArgumentException(Constants.INVALID_PRICE_MESSAGE);
     }
 }
