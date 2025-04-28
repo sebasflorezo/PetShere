@@ -40,3 +40,10 @@ build/
 
 /files/~$HistoriasUsuario.xlsx
 files/HistoriasUsuario.xlsx
+
+### Script execution ###
+.env
+backend.log
+backend-error.log
+frontend.log
+frontend-error.log
