@@ -1,0 +1,26 @@
+.sidebar {
+    width: 10vh;
+    height: 100vh;
+    background: white;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+
+    .logo-container {
+        margin-bottom: 2rem;
+        align-self: center;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .nav-container {
+        nav {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

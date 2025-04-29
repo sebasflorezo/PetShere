@@ -2,10 +2,11 @@ import { Component, type OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from '../../components/dashboard-components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [FormsModule],
+  imports: [FormsModule, SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -16,7 +17,7 @@ export class DashboardComponent implements OnInit {
       if (!isAuth) this.router.navigate(['/login']);
     });
 
-    // Validar / Refrescar token
+    // TODO: Validar / Refrescar token
   }
 
   onSubmit(): void {
