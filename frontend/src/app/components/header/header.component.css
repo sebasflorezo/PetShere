@@ -74,6 +74,7 @@
 }
 
 .session-buttons button {
+  font-family: "Poppins", sans-serif;
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
