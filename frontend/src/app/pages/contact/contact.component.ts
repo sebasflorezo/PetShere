@@ -9,5 +9,6 @@ import { FooterComponent } from '../../components/footer/footer.component';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent {
+  email: string = 'petsherevet@gmail.com'
 
 }
