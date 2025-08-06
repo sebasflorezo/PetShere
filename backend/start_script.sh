@@ -37,7 +37,7 @@ cleanup () {
   echo -e "${RED}\nDeteniendo procesos...${RESET}"
   [[ -n "$PETSHERE_BACKEND_PID" ]] && kill "$PETSHERE_BACKEND_PID" 2>/dev/null || true
   [[ -n "$PETSHERE_FRONTEND_PID" ]] && kill "$PETSHERE_FRONTEND_PID" 2>/dev/null || true
-    [[ -n "$TAIL_PID" ]] && kill "$TAIL_PID" 2>/dev/null || true
+  [[ -n "$TAIL_PID" ]] && kill "$TAIL_PID" 2>/dev/null || true
   sudo systemctl stop mysql
   echo -e "${RED}Aplicación detenida\n${RESET}"
   read -n 1 -s -r -p "Presione cualquier tecla para continuar..."
@@ -133,5 +133,4 @@ main () {
 main || {
   echo -e "${RED}\nError al iniciar la aplicación${RESET}" >&2
   cleanup
-
 }
