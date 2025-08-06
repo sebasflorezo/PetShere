@@ -1,0 +1,48 @@
+services:
+  mysql:
+    image: mysql:lts
+    container_name: petshere-mysql
+    env_file:
+      - .env-mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - petshere-net
+    # Verificar que esté mysql activo antes de lanzare l backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    
+
+  backend:
+    build: ./backend
+    container_name: petshere-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - petshere-net
+
+  frontend:
+    build: ./frontend
+    container_name: petshere-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - petshere-net
+
+volumes:
+  mysql-data:
+
+networks:
+  petshere-net:

@@ -43,4 +43,4 @@ build/
 /files/HistoriasUsuario.xlsx
 
 ### ENV ###
-/backend/.env
+.env*
