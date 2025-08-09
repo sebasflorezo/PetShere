@@ -7,6 +7,7 @@ import com.PetShere.presentation.dto.auth.LoginRequest;
 import com.PetShere.presentation.dto.auth.RegisterRequest;
 import com.PetShere.persistence.repository.user.IUserRepository;
 import com.PetShere.service.implementation.mail.MailSenderService;
+import com.PetShere.service.implementation.auth.JwtService;
 import com.PetShere.util.Validations;
 import com.PetShere.util.Constants;
 import com.PetShere.service.exception.NotFoundException;
