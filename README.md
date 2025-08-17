@@ -28,6 +28,40 @@ Este sistema está en desarrollo activo y actualmente se encuentra en la etapa d
 ### Otros
 - **Control de Versiones:** Git y GitHub
 - **Gestión de Dependencias:** Maven para el backend y npm para el frontend.
+- **Contenerización:** Docker para la orquestación y contenerizar el frontend, backend y base de datos.
+
+### Ejecutar proyecto
+1. Crear los archivos .env_mysql y backend/.env con las siguientes variables de entorno:
+  - **.env-mysql**
+  ```bash
+  MYSQL_DATABASE=petsheredb
+
+  MYSQL_USER=
+
+  MYSQL_PASSWORD=
+
+  MYSQL_ROOT_PASSWORD=
+  ```
+
+  - **backend/.env**
+  ```bash
+  JWT_SECRET=
+
+  URL_DB=jdbc:mysql://mysql:3306/petsheredb
+
+  USUARIO_DB=(mismo que MYSQL_USER)
+
+  CONTRA_DB=(mismo que MYSQL_PASSWORD)
+
+  GMAIL_PASSWORD=(código de aplicación de SMTP de Gmail)
+  ```
+
+  
+
+2. Ejecutar el docker-compose.yaml
+```bash
+sudo docker compose up --build
+```
 
 ---
 ## Autores
