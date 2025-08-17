@@ -1,0 +1,190 @@
+.bg-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* TODO: Quitar */
+}
+
+.register {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-size: 25px;
+
+  button {
+    font-size: 25px;
+  }
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  background: white;
+  border-radius: 15px;
+  height: 97%;
+  width: 45%;
+}
+
+.register-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.register-top .back-button {
+  position: absolute;
+  align-self: flex-start;
+  left: 0;
+
+  padding: 5px 3vh;
+  margin: 0 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+}
+
+.register-top .back-button:hover {
+  background-color: #115814;
+}
+
+.register-top .logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  p {
+    font-family: "DynaPuff", sans-serif;
+    font-size: 30px;
+    margin: 0;
+  }
+}
+
+/* Register Menu */
+
+.entries {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 100px;
+  gap: 5px;
+
+  .document,
+  .email,
+  .password,
+  .confirmPassword,
+  .phone,
+  .direction {
+    grid-column: span 2;
+  }
+
+  .options {
+    grid-column: span 2;
+    height: auto;
+  }
+
+  .input-field {
+    margin: 0 0.5rem;
+  }
+}
+
+.entries {
+  a {
+    text-decoration-line: none;
+  }
+
+  input {
+    border: none;
+    width: 95%;
+    height: 10%;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+  }
+
+  .error-message {
+    margin: 5px 0;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: red;
+    background-color: rgba(255, 0, 0, 0.2);
+    text-align: center;
+  }
+}
+
+.input-field input:focus {
+  outline: none;
+}
+
+.input-field input + label {
+  margin: 20px 0 0;
+}
+
+/* Submit button */
+
+.entries button {
+  padding: 10px 10%;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #23a5a5;
+  color: white;
+}
+
+.entries button:hover {
+  background-color: #1c8484;
+}
+
+.entries button:disabled {
+  cursor: auto;
+  background-color: gray;
+}
+/* 
+
+.entries .options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.entries .options .switch-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.entries .submit-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.entries .submit-buttons button {
+  padding: 10px 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: #23a5a5;
+  color: white;
+}
+
+.entries .submit-buttons button:hover {
+  background-color: #1c8484;
+}
+
+.entries .submit-buttons button:disabled {
+  cursor: auto;
+  background-color: gray;
+} */

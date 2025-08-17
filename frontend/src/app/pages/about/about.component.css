@@ -1,0 +1,53 @@
+.about {
+  background: #f5f5f5;
+}
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.about-section {
+  background: white;
+  padding: 40px 20px;
+  border-radius: 16px;
+  width: 90%;
+  margin: 20px auto 20px auto;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row-reverse;
+
+  img {
+    width: 100%;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+
+  .about-text {
+    max-width: 50%;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 1.8rem;
+      color: #4caf50;
+    }
+
+    p {
+      font-size: 1.3rem;
+      line-height: 1.6;
+    }
+  }
+}
+
+.about-section:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.about-section:nth-child(even) {
+  background-color: #fafafa;
+}

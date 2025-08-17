@@ -1,0 +1,6 @@
+{
+    "/api": {
+        "target": "http://petshere-backend:8080",
+        "secure": false
+    }
+}

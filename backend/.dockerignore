@@ -1,0 +1,6 @@
+*.log
+*.sh
+*.ps1
+*.bat
+.idea
+.env

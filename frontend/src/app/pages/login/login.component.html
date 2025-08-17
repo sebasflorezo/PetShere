@@ -1,0 +1,72 @@
+<img
+  src="assets/pages-images/background-images/LoginBackground.png"
+  alt="Imagen de fondo"
+  class="bg-image"
+/>
+
+<section class="login">
+  <div class="login-container">
+    <div class="logo-container">
+      <img src="assets/logos/LogoCompletoPetShere.svg" alt="Logo PetShere" />
+      <p>¡Qué genial verte de nuevo!</p>
+    </div>
+
+    <form class="entries" (ngSubmit)="onSubmit()">
+      <label for="email" class="form-label">Correo</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        placeholder="Ingresa tu correo electrónico"
+        [(ngModel)]="credentials.email"
+        required
+      />
+
+      <label for="password" class="form-label">Contraseña</label>
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        (mouseenter)="togglePasswordVisibility(true)"
+        (mouseleave)="togglePasswordVisibility(false)"
+        name="password"
+        id="password"
+        placeholder="Ingresa tu contraseña"
+        [(ngModel)]="credentials.password"
+        required
+      />
+
+      <p class="error-message" [hidden]="!errorMessage">{{ errorMessage }}</p>
+
+      <div class="options">
+        <div class="switch-container">
+          <label class="switch">
+            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+            <span class="slider round"></span>
+          </label>
+          <p>Recuérdame</p>
+        </div>
+
+        <a href="/passwordrecovery">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <div class="submit-buttons">
+        <button
+          type="submit"
+          [disabled]="!credentials.email || !credentials.password"
+        >
+          Ingresar
+        </button>
+      </div>
+
+      <p class="register-p">
+        ¿No tienes una cuenta? <a href="/register">Regístrate ahora</a>
+      </p>
+    </form>
+  </div>
+
+  <div class="button-back">
+    <button onclick="location.href='/'">
+      <img src="assets/icons/back-icon.svg" />
+      <p>Regresar al Inicio</p>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,101 @@
+.blank-space {
+  height: 60px;
+}
+
+.header {
+  display: flex;
+
+  background: white;
+  padding: 10px 0;
+
+  /* Posición fijada y que esté por encima de otros elementos */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 45px;
+}
+
+/* Navegation Bar */
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 100;
+
+  padding: 0 20px;
+}
+
+.nav-container .logo {
+  height: 50px;
+  cursor: pointer;
+}
+
+.nav-container .nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-container .nav ul li {
+  display: inline;
+}
+
+.nav-container .nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+/* Separator */
+
+.header hr {
+  align-self: center;
+  flex-grow: 0;
+
+  border: 2px solid #e0e6eb;
+  border-radius: 10px;
+  height: 90%;
+}
+
+/* Session Buttons */
+
+.session-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-grow: 1;
+
+  padding: 0 20px;
+}
+
+.session-buttons button {
+  font-family: "Poppins", sans-serif;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.session-buttons .login-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.session-buttons .login-btn:hover {
+  background-color: #115814;
+}
+
+.session-buttons .register-btn {
+  background-color: #f5f5f5;
+  color: black;
+}
+
+.session-buttons .register-btn:hover {
+  background-color: #333333;
+  color: white;
+}

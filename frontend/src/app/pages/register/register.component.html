@@ -1,0 +1,160 @@
+<img
+  src="assets/pages-images/background-images/RegisterBackground.png"
+  alt="Imagen de fondo"
+  class="bg-image"
+/>
+
+<section class="register">
+  <div class="register-container">
+    <div class="register-top">
+      <button class="back-button" onclick="location.href='/'">
+        <img src="assets/icons/chevron.left.svg" />
+      </button>
+      <div class="logo-container">
+        <img src="assets/logos/LogoPetShereVerde.svg" alt="Logo PetShere" />
+        <p>Registrarse</p>
+      </div>
+    </div>
+
+    <form class="entries">
+      <div class="input-field firstName">
+        <label for="firstName" class="form-label">Primer nombre</label>
+        <input
+          type="text"
+          name="firstName"
+          id="firstName"
+          placeholder="Ingrese su primer nombre"
+          [(ngModel)]="credentials.firstName"
+          required
+        />
+      </div>
+
+      <div class="input-field middleName">
+        <label for="middleName" class="form-label">Segundo nombre</label>
+        <input
+          type="text"
+          name="middleName"
+          id="middleName"
+          placeholder="Ingrese su segundo nombre"
+          [(ngModel)]="credentials.middleName"
+        />
+      </div>
+
+      <div class="input-field lastName">
+        <label for="lastName" class="form-label">Primer apellido</label>
+        <input
+          type="text"
+          name="lastName"
+          id="lastName"
+          placeholder="Ingrese su primer apellido"
+          [(ngModel)]="credentials.lastName"
+          required
+        />
+      </div>
+
+      <div class="input-field secondSurname">
+        <label for="secondSurname" class="form-label">Segundo apellido</label>
+        <input
+          type="text"
+          name="secondSurname"
+          id="secondSurname"
+          placeholder="Ingrese su segundo apellido"
+          [(ngModel)]="credentials.secondSurname"
+          required
+        />
+      </div>
+
+      <div class="input-field document">
+        <label for="document" class="form-label">Documento</label>
+        <input
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]"
+          name="document"
+          id="document"
+          placeholder="Ingrese su documento"
+          [(ngModel)]="credentials.document"
+          required
+        />
+      </div>
+
+      <div class="input-field email">
+        <label for="email" class="form-label">Correo</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Ingrese su correo"
+          [(ngModel)]="credentials.email"
+          required
+        />
+      </div>
+
+      <div class="input-field password">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Ingrese su contraseña"
+          [(ngModel)]="credentials.password"
+          required
+        />
+      </div>
+
+      <div class="input-field confirmPassword">
+        <label for="confirmPassword" class="form-label"
+          >Confirmar contraseña
+        </label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="Ingrese su contraseña de nuevo"
+          [(ngModel)]="passwordConfirmation"
+          required
+        />
+      </div>
+
+      <div class="input-field phone">
+        <label for="phone" class="form-label">Teléfono</label>
+        <input
+          type="text"
+          inputmode="numeric"
+          pattern="[0-9]"
+          name="phone"
+          id="phone"
+          placeholder="Ingrese su teléfono"
+          [(ngModel)]="credentials.phone"
+          required
+        />
+      </div>
+
+      <div class="input-field direction">
+        <label for="direction" class="form-label">Dirección</label>
+        <input
+          type="text"
+          name="direction"
+          id="direction"
+          placeholder="Ingrese su dirección"
+          [(ngModel)]="credentials.direction"
+          required
+        />
+      </div>
+
+      <div class="options">
+        <p class="error-message" [hidden]="!errorMessage">{{ errorMessage }}</p>
+
+        <p class="politics-p">
+          Estoy de acuerdo con la política de tratamiento de datos personales
+        </p>
+
+        <p class="login-p">
+          ¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a>
+        </p>
+
+        <button type="submit" [disabled]="true">Registrarme</button>
+      </div>
+    </form>
+  </div>
+</section>
