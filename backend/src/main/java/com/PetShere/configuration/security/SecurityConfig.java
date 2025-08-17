@@ -22,12 +22,20 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authProvider;
 
+    private static final String[] WHITELIST = {
+            "/docs.html",
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-resources/**",
+            "/auth/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("auth/**").permitAll() // Rutas permitidas
+                        .requestMatchers(WHITELIST).permitAll() // Rutas permitidas
                         .anyRequest().authenticated() // Rutas que requieren autenticación
                 )
                 .sessionManagement(sessionManager -> sessionManager
